@@ -22,6 +22,7 @@
 		04D2F7911E72C5180033A434 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D2F78F1E72C5180033A434 /* Main.storyboard */; };
 		04D2F7931E72C5180033A434 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04D2F7921E72C5180033A434 /* Assets.xcassets */; };
 		04D2F7961E72C5180033A434 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D2F7941E72C5180033A434 /* LaunchScreen.storyboard */; };
+		4923A1151E73026F000AF716 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923A1141E73026E000AF716 /* Debug.swift */; };
 		51928FB61A68053AE4C05B23 /* Pods_VManga.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908961B10D2D01A6B67B3F44 /* Pods_VManga.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		04D2F7921E72C5180033A434 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04D2F7951E72C5180033A434 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04D2F7971E72C5180033A434 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4923A1141E73026E000AF716 /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		79FDE8EB6E4375DDA8802328 /* Pods-VManga.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VManga.release.xcconfig"; path = "Pods/Target Support Files/Pods-VManga/Pods-VManga.release.xcconfig"; sourceTree = "<group>"; };
 		908961B10D2D01A6B67B3F44 /* Pods_VManga.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VManga.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F917A3E4DDC141D9A9D795 /* Pods-VManga.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VManga.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VManga/Pods-VManga.debug.xcconfig"; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				046A3EAF1E72C8CD00657429 /* Model */,
 				046A3EA61E72C8AD00657429 /* DataManager */,
 				04D2F78B1E72C5180033A434 /* AppDelegate.swift */,
+				4923A1141E73026E000AF716 /* Debug.swift */,
 				04D2F78F1E72C5180033A434 /* Main.storyboard */,
 				04D2F7921E72C5180033A434 /* Assets.xcassets */,
 				04D2F7941E72C5180033A434 /* LaunchScreen.storyboard */,
@@ -218,7 +221,7 @@
 				TargetAttributes = {
 					04D2F7871E72C5180033A434 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = FAZH6E59JU;
+						DevelopmentTeam = 3FM7JRXRKW;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -315,6 +318,7 @@
 				046A3ECA1E7309C200657429 /* HHSearchViewController.swift in Sources */,
 				046A3EC41E72EEEE00657429 /* HHSearchViews.swift in Sources */,
 				046A3EAE1E72C8C500657429 /* Book.swift in Sources */,
+				4923A1151E73026F000AF716 /* Debug.swift in Sources */,
 				046A3EAC1E72C8AD00657429 /* SearchManager.swift in Sources */,
 				04D2F78C1E72C5180033A434 /* AppDelegate.swift in Sources */,
 				046A3EAA1E72C8AD00657429 /* Constant.swift in Sources */,
@@ -442,10 +446,10 @@
 			baseConfigurationReference = D0F917A3E4DDC141D9A9D795 /* Pods-VManga.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = FAZH6E59JU;
+				DEVELOPMENT_TEAM = 3FM7JRXRKW;
 				INFOPLIST_FILE = VManga/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ga.hohoanghiep.VManga;
+				PRODUCT_BUNDLE_IDENTIFIER = ga.vulong.VManga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -456,10 +460,10 @@
 			baseConfigurationReference = 79FDE8EB6E4375DDA8802328 /* Pods-VManga.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = FAZH6E59JU;
+				DEVELOPMENT_TEAM = 3FM7JRXRKW;
 				INFOPLIST_FILE = VManga/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ga.hohoanghiep.VManga;
+				PRODUCT_BUNDLE_IDENTIFIER = ga.vulong.VManga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
