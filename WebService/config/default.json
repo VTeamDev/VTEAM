@@ -1,7 +1,7 @@
 {
   "host": "localhost",
   "port": 3030,
-  "mongodb": "mongodb://vtruyen_user:FsVtruYenPA2031@wannashare.info:27017/vmanga",
+  "mongodb": "mongodb://localhost:27017/vmanga",
   "public": "../public/",
   "auth": {
     "token": {
