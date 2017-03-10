@@ -21,6 +21,8 @@ class HHFavorView: UIView {
     @IBOutlet var favorBookView: UIView!
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+//        self.EmptyFavorBookView?.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1.0)
+        //self.favorBookView.backgroundColor = viewBackgroundColor
         UINib.init(nibName: "HHFavorView", bundle: nil).instantiate(withOwner: self, options: nil)
         self.addSubview(EmptyFavorBookView)
         EmptyFavorBookView.frame = self.bounds

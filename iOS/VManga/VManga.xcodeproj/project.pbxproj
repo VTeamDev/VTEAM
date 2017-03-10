@@ -15,6 +15,8 @@
 		046A3EB71E72D98E00657429 /* HHFavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EB61E72D98E00657429 /* HHFavorView.swift */; };
 		046A3EBB1E72E0F300657429 /* HHRecentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EB91E72E0F300657429 /* HHRecentTableViewCell.swift */; };
 		046A3EBC1E72E0F300657429 /* HHRecentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A3EBA1E72E0F300657429 /* HHRecentTableViewCell.xib */; };
+		046A3EC21E72EEC700657429 /* HHSearchViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A3EC01E72EEC700657429 /* HHSearchViews.xib */; };
+		046A3EC41E72EEEE00657429 /* HHSearchViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EC31E72EEEE00657429 /* HHSearchViews.swift */; };
 		04D2F78C1E72C5180033A434 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2F78B1E72C5180033A434 /* AppDelegate.swift */; };
 		04D2F7911E72C5180033A434 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D2F78F1E72C5180033A434 /* Main.storyboard */; };
 		04D2F7931E72C5180033A434 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04D2F7921E72C5180033A434 /* Assets.xcassets */; };
@@ -31,6 +33,8 @@
 		046A3EB61E72D98E00657429 /* HHFavorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHFavorView.swift; path = Views/FavorViews/HHFavorView.swift; sourceTree = "<group>"; };
 		046A3EB91E72E0F300657429 /* HHRecentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHRecentTableViewCell.swift; path = Views/RecentViews/HHRecentTableViewCell.swift; sourceTree = "<group>"; };
 		046A3EBA1E72E0F300657429 /* HHRecentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHRecentTableViewCell.xib; path = Views/RecentViews/HHRecentTableViewCell.xib; sourceTree = "<group>"; };
+		046A3EC01E72EEC700657429 /* HHSearchViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHSearchViews.xib; path = Views/SearchViews/HHSearchViews.xib; sourceTree = "<group>"; };
+		046A3EC31E72EEEE00657429 /* HHSearchViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHSearchViews.swift; path = Views/SearchViews/HHSearchViews.swift; sourceTree = "<group>"; };
 		04D2F7881E72C5180033A434 /* VManga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VManga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D2F78B1E72C5180033A434 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D2F7901E72C5180033A434 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -75,6 +79,7 @@
 		046A3EB01E72C8D700657429 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				046A3EBE1E72EE9200657429 /* SearchViews */,
 				046A3EB81E72DCA200657429 /* RecentViews */,
 				046A3EB11E72D91700657429 /* FavorViews */,
 			);
@@ -97,6 +102,15 @@
 				046A3EBA1E72E0F300657429 /* HHRecentTableViewCell.xib */,
 			);
 			name = RecentViews;
+			sourceTree = "<group>";
+		};
+		046A3EBE1E72EE9200657429 /* SearchViews */ = {
+			isa = PBXGroup;
+			children = (
+				046A3EC01E72EEC700657429 /* HHSearchViews.xib */,
+				046A3EC31E72EEEE00657429 /* HHSearchViews.swift */,
+			);
+			name = SearchViews;
 			sourceTree = "<group>";
 		};
 		04D2F77F1E72C5180033A434 = {
@@ -213,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046A3EC21E72EEC700657429 /* HHSearchViews.xib in Resources */,
 				04D2F7961E72C5180033A434 /* LaunchScreen.storyboard in Resources */,
 				046A3EBC1E72E0F300657429 /* HHRecentTableViewCell.xib in Resources */,
 				046A3EB51E72D96D00657429 /* HHFavorView.xib in Resources */,
@@ -278,6 +293,7 @@
 			files = (
 				046A3EBB1E72E0F300657429 /* HHRecentTableViewCell.swift in Sources */,
 				046A3EAB1E72C8AD00657429 /* InternetStatus.swift in Sources */,
+				046A3EC41E72EEEE00657429 /* HHSearchViews.swift in Sources */,
 				046A3EAE1E72C8C500657429 /* Book.swift in Sources */,
 				046A3EAC1E72C8AD00657429 /* SearchManager.swift in Sources */,
 				04D2F78C1E72C5180033A434 /* AppDelegate.swift in Sources */,
