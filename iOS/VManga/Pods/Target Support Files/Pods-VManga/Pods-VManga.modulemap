@@ -1,0 +1,6 @@
+framework module Pods_VManga {
+  umbrella header "Pods-VManga-umbrella.h"
+
+  export *
+  module * { export * }
+}
