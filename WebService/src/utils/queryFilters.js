@@ -6,13 +6,12 @@ exports.create = function(query) {
     $sort: query.$sort,
     $select: query.$select,
     $polulate: query.$polulate
-  }
+  };
 
   if (typeof query.$skip !== 'undefined') {
     filters.$skip = parseInt(query.$skip);
   }
   filters.$limit = 5;
-
   if (typeof query.$limit !== 'undefined') {
     filters.$limit = parseInt(query.$limit);
   }
