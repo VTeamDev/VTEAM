@@ -1,12 +1,19 @@
 {
   "host": "localhost",
   "port": 3030,
-  "mongodb": "mongodb://localhost:27017/vmanga",
+  "mongodb": "mongodb://vtruyen_user:FsVtruYenPA2031@wannashare.info:27017/vmanga",
   "public": "../public/",
   "auth": {
     "token": {
       "secret": "VZT6Db8fXBig9dycUOtpOTZmUyZJr8mXk03ykkn+H/360JmCmJQ9Bk0fwFbvq90HL8baMj/5WCxHMG0ocRYUbQ=="
     },
-    "local": {}
+    "local": {},
+    "facebook": {
+      "clientID": "587639168061607",
+      "clientSecret": "8ab3b1f3c2a3df1c47c0a84262861989",
+      "permissions": {
+        "scope": ["public_profile","email"]
+      }
+    }
   }
 }

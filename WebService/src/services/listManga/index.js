@@ -3,6 +3,7 @@ const listManga = require('./models/listManga.model');
 const hooks = require('./hooks');
 const controller = require('./controllers/listManga.controller');
 const mangaSorted = require('./controllers/MangaSorted.controller');
+const searchManga = require('./controllers/searchManga.controller');
 
 module.exports = function() {
   const app = this;
@@ -15,6 +16,7 @@ module.exports = function() {
   app.get('/api/v1/list/latest', mangaSorted.latest);
   app.get('/api/v1/list/top', mangaSorted.top);
   app.get('/api/v1/list/recommend', mangaSorted.recommend);
+  app.get('/api/v1/list/search', searchManga.search);
 
   app.use('/api/v1/list', new controller(options));
 
