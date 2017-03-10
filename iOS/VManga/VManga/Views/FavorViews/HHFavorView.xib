@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HHFavorView" customModule="VManga" customModuleProvider="target">
+            <connections>
+                <outlet property="EmptyFavorBookView" destination="XJY-t8-KTg" id="cTv-9X-LFM"/>
+                <outlet property="favorBookView" destination="i5M-Pr-FkT" id="qvd-jN-eE1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+        </view>
+        <view contentMode="scaleToFill" id="XJY-t8-KTg">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BdD-bt-Gg7">
+                    <rect key="frame" x="94" y="267" width="188" height="133"/>
+                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NPE-wC-GAI">
+                    <rect key="frame" x="62.5" y="450" width="250" height="23"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Không có truyện yêu thích" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzj-K0-Q0v">
+                            <rect key="frame" x="0.0" y="0.0" width="250" height="23"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Để đánh dấu truyện yêu thích, chọn nút Yêu thích ở trang thông tin truyện." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DnT-TU-nAu">
+                    <rect key="frame" x="62.5" y="483" width="250" height="57.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="BdD-bt-Gg7" firstAttribute="width" secondItem="XJY-t8-KTg" secondAttribute="width" multiplier="1:2" id="9xG-UQ-jCA"/>
+                <constraint firstItem="BdD-bt-Gg7" firstAttribute="centerX" secondItem="XJY-t8-KTg" secondAttribute="centerX" id="KSs-Ff-fzL"/>
+                <constraint firstItem="NPE-wC-GAI" firstAttribute="top" secondItem="BdD-bt-Gg7" secondAttribute="bottom" constant="50" id="OaN-7Z-Ikq"/>
+                <constraint firstItem="BdD-bt-Gg7" firstAttribute="height" secondItem="XJY-t8-KTg" secondAttribute="height" multiplier="1:5" id="SHJ-eF-uaM"/>
+                <constraint firstItem="DnT-TU-nAu" firstAttribute="top" secondItem="NPE-wC-GAI" secondAttribute="bottom" constant="10" id="ZRl-Bd-Y6h"/>
+                <constraint firstItem="BdD-bt-Gg7" firstAttribute="centerY" secondItem="XJY-t8-KTg" secondAttribute="centerY" id="qGu-7Z-jj6"/>
+                <constraint firstItem="NPE-wC-GAI" firstAttribute="centerX" secondItem="XJY-t8-KTg" secondAttribute="centerX" id="r9M-NE-rx7"/>
+                <constraint firstItem="NPE-wC-GAI" firstAttribute="width" secondItem="XJY-t8-KTg" secondAttribute="width" multiplier="2:3" id="r9p-ze-YgT"/>
+                <constraint firstItem="DnT-TU-nAu" firstAttribute="leading" secondItem="hzj-K0-Q0v" secondAttribute="leading" id="t8T-uH-HkY"/>
+                <constraint firstItem="DnT-TU-nAu" firstAttribute="centerX" secondItem="XJY-t8-KTg" secondAttribute="centerX" id="yEN-Qu-8Gp"/>
+            </constraints>
+            <point key="canvasLocation" x="594" y="55"/>
+        </view>
+    </objects>
+</document>

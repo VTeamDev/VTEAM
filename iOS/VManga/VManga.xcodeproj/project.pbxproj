@@ -11,6 +11,10 @@
 		046A3EAB1E72C8AD00657429 /* InternetStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EA81E72C8AD00657429 /* InternetStatus.swift */; };
 		046A3EAC1E72C8AD00657429 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EA91E72C8AD00657429 /* SearchManager.swift */; };
 		046A3EAE1E72C8C500657429 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EAD1E72C8C500657429 /* Book.swift */; };
+		046A3EB51E72D96D00657429 /* HHFavorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A3EB31E72D96D00657429 /* HHFavorView.xib */; };
+		046A3EB71E72D98E00657429 /* HHFavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EB61E72D98E00657429 /* HHFavorView.swift */; };
+		046A3EBB1E72E0F300657429 /* HHRecentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EB91E72E0F300657429 /* HHRecentTableViewCell.swift */; };
+		046A3EBC1E72E0F300657429 /* HHRecentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A3EBA1E72E0F300657429 /* HHRecentTableViewCell.xib */; };
 		04D2F78C1E72C5180033A434 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2F78B1E72C5180033A434 /* AppDelegate.swift */; };
 		04D2F7911E72C5180033A434 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D2F78F1E72C5180033A434 /* Main.storyboard */; };
 		04D2F7931E72C5180033A434 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04D2F7921E72C5180033A434 /* Assets.xcassets */; };
@@ -23,6 +27,10 @@
 		046A3EA81E72C8AD00657429 /* InternetStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetStatus.swift; sourceTree = "<group>"; };
 		046A3EA91E72C8AD00657429 /* SearchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		046A3EAD1E72C8C500657429 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Book.swift; path = Model/Book.swift; sourceTree = "<group>"; };
+		046A3EB31E72D96D00657429 /* HHFavorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHFavorView.xib; path = Views/FavorViews/HHFavorView.xib; sourceTree = "<group>"; };
+		046A3EB61E72D98E00657429 /* HHFavorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHFavorView.swift; path = Views/FavorViews/HHFavorView.swift; sourceTree = "<group>"; };
+		046A3EB91E72E0F300657429 /* HHRecentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHRecentTableViewCell.swift; path = Views/RecentViews/HHRecentTableViewCell.swift; sourceTree = "<group>"; };
+		046A3EBA1E72E0F300657429 /* HHRecentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHRecentTableViewCell.xib; path = Views/RecentViews/HHRecentTableViewCell.xib; sourceTree = "<group>"; };
 		04D2F7881E72C5180033A434 /* VManga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VManga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D2F78B1E72C5180033A434 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D2F7901E72C5180033A434 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -67,8 +75,28 @@
 		046A3EB01E72C8D700657429 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				046A3EB81E72DCA200657429 /* RecentViews */,
+				046A3EB11E72D91700657429 /* FavorViews */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		046A3EB11E72D91700657429 /* FavorViews */ = {
+			isa = PBXGroup;
+			children = (
+				046A3EB31E72D96D00657429 /* HHFavorView.xib */,
+				046A3EB61E72D98E00657429 /* HHFavorView.swift */,
+			);
+			name = FavorViews;
+			sourceTree = "<group>";
+		};
+		046A3EB81E72DCA200657429 /* RecentViews */ = {
+			isa = PBXGroup;
+			children = (
+				046A3EB91E72E0F300657429 /* HHRecentTableViewCell.swift */,
+				046A3EBA1E72E0F300657429 /* HHRecentTableViewCell.xib */,
+			);
+			name = RecentViews;
 			sourceTree = "<group>";
 		};
 		04D2F77F1E72C5180033A434 = {
@@ -150,6 +178,7 @@
 		04D2F7801E72C5180033A434 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = HH;
 				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = mac;
@@ -185,6 +214,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				04D2F7961E72C5180033A434 /* LaunchScreen.storyboard in Resources */,
+				046A3EBC1E72E0F300657429 /* HHRecentTableViewCell.xib in Resources */,
+				046A3EB51E72D96D00657429 /* HHFavorView.xib in Resources */,
 				04D2F7931E72C5180033A434 /* Assets.xcassets in Resources */,
 				04D2F7911E72C5180033A434 /* Main.storyboard in Resources */,
 			);
@@ -245,11 +276,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046A3EBB1E72E0F300657429 /* HHRecentTableViewCell.swift in Sources */,
 				046A3EAB1E72C8AD00657429 /* InternetStatus.swift in Sources */,
 				046A3EAE1E72C8C500657429 /* Book.swift in Sources */,
 				046A3EAC1E72C8AD00657429 /* SearchManager.swift in Sources */,
 				04D2F78C1E72C5180033A434 /* AppDelegate.swift in Sources */,
 				046A3EAA1E72C8AD00657429 /* Constant.swift in Sources */,
+				046A3EB71E72D98E00657429 /* HHFavorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D8B3676B93C6B2FAB98B611814ECC5E35CAB74C8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D8B3676B93C6B2FAB98B611814ECC5E35CAB74C8" : 9223372036854775807,
+    "F459640AC6B8EC4E0026E069A49020004DE9046B" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8E76FDCC-D8B2-4EA4-AEE7-72A0F0895A63",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D8B3676B93C6B2FAB98B611814ECC5E35CAB74C8" : "IOS\/",
+    "F459640AC6B8EC4E0026E069A49020004DE9046B" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "VManga",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "VManga\/VManga.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/narutomanchester\/HHVManga.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D8B3676B93C6B2FAB98B611814ECC5E35CAB74C8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/uethackathon2017\/VTEAM.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F459640AC6B8EC4E0026E069A49020004DE9046B"
+    }
+  ]
+}

@@ -9,58 +9,68 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
-        <scene sceneID="X1z-l5-O9S">
-            <objects>
-                <tableViewController id="EOB-l7-PJZ" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZKQ-m7-Ll4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="B4K-8A-o0C">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B4K-8A-o0C" id="qIN-qr-KEV">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="EOB-l7-PJZ" id="uQW-eb-6ov"/>
-                            <outlet property="delegate" destination="EOB-l7-PJZ" id="7Kq-xA-Gwd"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="bbB-Z2-5RY"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wsE-7Z-8yn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="ujO-yB-ROH" customClass="RAMFumeAnimation" customModule="RAMAnimatedTabBarController"/>
-            </objects>
-            <point key="canvasLocation" x="1265" y="738"/>
-        </scene>
         <!--Yêu thích-->
         <scene sceneID="9IL-Th-IjC">
             <objects>
                 <navigationController id="MIg-EY-26c" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Yêu thích" image="Star-50" id="4r4-kN-nbC" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController"/>
+                    <tabBarItem key="tabBarItem" title="Yêu thích" image="Star-50" id="4r4-kN-nbC" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <connections>
+                            <outlet property="animation" destination="XaG-1D-pbp" id="KE2-Qx-X43"/>
+                        </connections>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IyA-lH-Ajd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="EOB-l7-PJZ" kind="relationship" relationship="rootViewController" id="Pns-oJ-hHO"/>
+                        <segue destination="0z2-hJ-uuL" kind="relationship" relationship="rootViewController" id="2Wa-ge-VPm"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ma3-90-mRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="XaG-1D-pbp" customClass="RAMFumeAnimation" customModule="RAMAnimatedTabBarController"/>
             </objects>
             <point key="canvasLocation" x="313" y="738"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Nk7-XL-fat">
+            <objects>
+                <viewController id="0z2-hJ-uuL" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="v9e-DX-jPZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="H6c-OT-e9U"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0nT-9G-9Ka">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsG-2Y-Em2" customClass="HHFavorView" customModule="VManga" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="H6c-OT-e9U" firstAttribute="top" secondItem="dsG-2Y-Em2" secondAttribute="bottom" id="IrI-5c-bUl"/>
+                            <constraint firstAttribute="trailing" secondItem="dsG-2Y-Em2" secondAttribute="trailing" id="Oyh-y7-8u1"/>
+                            <constraint firstItem="dsG-2Y-Em2" firstAttribute="leading" secondItem="0nT-9G-9Ka" secondAttribute="leading" id="SQF-wz-XVR"/>
+                            <constraint firstItem="dsG-2Y-Em2" firstAttribute="top" secondItem="0nT-9G-9Ka" secondAttribute="top" id="bSP-fk-oCS"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="frl-iS-Ncc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vmr-SD-PKA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1184" y="762"/>
         </scene>
         <!--Home-->
         <scene sceneID="VNn-7C-q0p">
             <objects>
                 <navigationController id="9mY-wR-72d" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="List-50" id="ara-PL-wXV" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="List-50" id="ara-PL-wXV" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <connections>
+                            <outlet property="animation" destination="Sdd-1k-YW4" id="egU-Ln-Dii"/>
+                        </connections>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qiH-6h-31q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -70,6 +80,7 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hop-lM-ucH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="Sdd-1k-YW4" customClass="RAMBounceAnimation" customModule="RAMAnimatedTabBarController"/>
             </objects>
             <point key="canvasLocation" x="310" y="-98"/>
         </scene>
@@ -89,7 +100,6 @@
                     <navigationItem key="navigationItem" id="agA-q3-ttq"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4A-RM-MgC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="Sb3-dN-0Dv" customClass="RAMFumeAnimation" customModule="RAMAnimatedTabBarController"/>
             </objects>
             <point key="canvasLocation" x="1152" y="-72"/>
         </scene>
@@ -119,7 +129,6 @@
                     <navigationItem key="navigationItem" title="Root View Controller" id="mjW-4f-M5v"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1in-kw-gVG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="sUX-XJ-v9Z" customClass="RAMFumeAnimation" customModule="RAMAnimatedTabBarController"/>
             </objects>
             <point key="canvasLocation" x="-1085" y="1167"/>
         </scene>
@@ -127,7 +136,11 @@
         <scene sceneID="ugb-FG-YPL">
             <objects>
                 <navigationController id="RUA-JW-veZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Gần đây" image="Watch-50" id="VnF-0Z-1vp" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController"/>
+                    <tabBarItem key="tabBarItem" title="Gần đây" image="Watch-50" id="VnF-0Z-1vp" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <connections>
+                            <outlet property="animation" destination="HJS-v7-dD3" id="nQk-O5-939"/>
+                        </connections>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uRj-x1-wUX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -137,6 +150,7 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p3X-kE-zB9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="HJS-v7-dD3" customClass="RAMRightRotationAnimation" customModule="RAMAnimatedTabBarController"/>
             </objects>
             <point key="canvasLocation" x="-2037" y="1167"/>
         </scene>
