@@ -1,0 +1,12 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "mongodb": "mongodb://localhost:27017/HackathonAPI",
+  "public": "../public/",
+  "auth": {
+    "token": {
+      "secret": "VZT6Db8fXBig9dycUOtpOTZmUyZJr8mXk03ykkn+H/360JmCmJQ9Bk0fwFbvq90HL8baMj/5WCxHMG0ocRYUbQ=="
+    },
+    "local": {}
+  }
+}
