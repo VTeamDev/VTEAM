@@ -160,7 +160,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3JF-Qm-5Xg" id="zbP-pq-MXt">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -222,10 +222,10 @@
             </objects>
             <point key="canvasLocation" x="-2767" y="134"/>
         </scene>
-        <!--View Controller-->
+        <!--Search View Controller-->
         <scene sceneID="lok-ZR-N3J">
             <objects>
-                <viewController id="3gc-sU-tYm" sceneMemberID="viewController">
+                <viewController id="3gc-sU-tYm" customClass="HHSearchViewController" customModule="VManga" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2mi-Mq-YN8"/>
                         <viewControllerLayoutGuide type="bottom" id="7Ez-nF-x3T"/>
@@ -236,6 +236,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="jme-wh-gmL"/>
+                    <connections>
+                        <outlet property="Sview" destination="WI2-B0-BHE" id="jo0-bD-6Dk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Yb-iv-kW2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -17,23 +17,18 @@ class HHSearchViews: UIView {
         // Drawing code
     }
     */
-    @IBOutlet var view: UIView!
+   // @IBOutlet var view: UIView!
+    @IBOutlet var view: HHSearchViews!
 
-    @IBOutlet weak var searchField: UITextField!
     
+    @IBOutlet weak var searchText: UISearchBar!
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-//        let imageView = UIImageView()
-//        let image = UIImage(named: "SearchField")
-//        imageView.image = image
-//        
-//        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
-//        view.addSubview(imageView)
-//        
-//        
-//        searchField.leftView = imageView
-//        searchField.leftViewMode = UITextFieldViewMode.always
+     
+       UINib.init(nibName: "HHSearchViews", bundle: nil).instantiate(withOwner: self, options: nil)
+        self.addSubview(view)
+        view.frame = self.bounds
         
     }
 }

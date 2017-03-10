@@ -17,6 +17,7 @@
 		046A3EBC1E72E0F300657429 /* HHRecentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A3EBA1E72E0F300657429 /* HHRecentTableViewCell.xib */; };
 		046A3EC21E72EEC700657429 /* HHSearchViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A3EC01E72EEC700657429 /* HHSearchViews.xib */; };
 		046A3EC41E72EEEE00657429 /* HHSearchViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EC31E72EEEE00657429 /* HHSearchViews.swift */; };
+		046A3ECA1E7309C200657429 /* HHSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EC91E7309C200657429 /* HHSearchViewController.swift */; };
 		04D2F78C1E72C5180033A434 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2F78B1E72C5180033A434 /* AppDelegate.swift */; };
 		04D2F7911E72C5180033A434 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D2F78F1E72C5180033A434 /* Main.storyboard */; };
 		04D2F7931E72C5180033A434 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04D2F7921E72C5180033A434 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		046A3EBA1E72E0F300657429 /* HHRecentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHRecentTableViewCell.xib; path = Views/RecentViews/HHRecentTableViewCell.xib; sourceTree = "<group>"; };
 		046A3EC01E72EEC700657429 /* HHSearchViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHSearchViews.xib; path = Views/SearchViews/HHSearchViews.xib; sourceTree = "<group>"; };
 		046A3EC31E72EEEE00657429 /* HHSearchViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHSearchViews.swift; path = Views/SearchViews/HHSearchViews.swift; sourceTree = "<group>"; };
+		046A3EC91E7309C200657429 /* HHSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHSearchViewController.swift; path = Controller/SearchController/HHSearchViewController.swift; sourceTree = "<group>"; };
 		04D2F7881E72C5180033A434 /* VManga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VManga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D2F78B1E72C5180033A434 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D2F7901E72C5180033A434 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -113,6 +115,22 @@
 			name = SearchViews;
 			sourceTree = "<group>";
 		};
+		046A3EC51E72FC9F00657429 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				046A3EC61E72FCA700657429 /* SearchController */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		046A3EC61E72FCA700657429 /* SearchController */ = {
+			isa = PBXGroup;
+			children = (
+				046A3EC91E7309C200657429 /* HHSearchViewController.swift */,
+			);
+			name = SearchController;
+			sourceTree = "<group>";
+		};
 		04D2F77F1E72C5180033A434 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +152,7 @@
 		04D2F78A1E72C5180033A434 /* VManga */ = {
 			isa = PBXGroup;
 			children = (
+				046A3EC51E72FC9F00657429 /* Controller */,
 				046A3EB01E72C8D700657429 /* Views */,
 				046A3EAF1E72C8CD00657429 /* Model */,
 				046A3EA61E72C8AD00657429 /* DataManager */,
@@ -293,6 +312,7 @@
 			files = (
 				046A3EBB1E72E0F300657429 /* HHRecentTableViewCell.swift in Sources */,
 				046A3EAB1E72C8AD00657429 /* InternetStatus.swift in Sources */,
+				046A3ECA1E7309C200657429 /* HHSearchViewController.swift in Sources */,
 				046A3EC41E72EEEE00657429 /* HHSearchViews.swift in Sources */,
 				046A3EAE1E72C8C500657429 /* Book.swift in Sources */,
 				046A3EAC1E72C8AD00657429 /* SearchManager.swift in Sources */,
