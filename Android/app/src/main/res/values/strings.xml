@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">VMangaAndroid</string>
+    <string name="app_name">V Manga</string>
+
+    <string name="search_hint">Enter manga name</string>
+    <string name="action_search">Search</string>
+
+    <!--Application label string-->
+    <string name="description">Description</string>
+    <string name="read">Read</string>
+    <string name="info_text">&#xf142;</string>
 </resources>
