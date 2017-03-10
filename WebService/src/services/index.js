@@ -18,6 +18,7 @@ module.exports = function() {
 
   app.configure(listManga);
   app.configure(manga);
+
   app.configure(mangaInfo);
   app.configure(authentication);
   app.configure(user);
