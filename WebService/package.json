@@ -33,6 +33,8 @@
     "feathers-mongoose": "^3.6.2",
     "feathers-rest": "^1.7.1",
     "feathers-socketio": "^1.5.2",
+    "lodash": "^4.17.4",
+    "lodash.omit": "^4.5.0",
     "mongoose": "^4.8.6",
     "passport": "^0.3.2",
     "serve-favicon": "^2.4.1",
