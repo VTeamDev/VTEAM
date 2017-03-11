@@ -28,6 +28,9 @@
 		04F01FB91E732C3C00304491 /* HHBookCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F01FB71E732C3C00304491 /* HHBookCollectionViewCell.xib */; };
 		04F01FBF1E73BCCD00304491 /* HHHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01FBD1E73BCCD00304491 /* HHHomeView.swift */; };
 		04F01FC01E73BCCD00304491 /* HHHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F01FBE1E73BCCD00304491 /* HHHomeView.xib */; };
+		04F01FC41E74218000304491 /* HHHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01FC21E74218000304491 /* HHHomeTableViewCell.swift */; };
+		04F01FC51E74218000304491 /* HHHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F01FC31E74218000304491 /* HHHomeTableViewCell.xib */; };
+		04F01FC81E74251E00304491 /* HHHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01FC71E74251E00304491 /* HHHomeViewController.swift */; };
 		492DF3731E73B21900C50983 /* HHReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492DF3721E73B21900C50983 /* HHReadingViewController.swift */; };
 		4942EC9E1E73399400DCC3ED /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942EC9D1E73399400DCC3ED /* API.swift */; };
 		4942ECC81E7373DA00DCC3ED /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942ECC71E7373DA00DCC3ED /* Debug.swift */; };
@@ -58,6 +61,9 @@
 		04F01FB71E732C3C00304491 /* HHBookCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHBookCollectionViewCell.xib; path = Views/BookCollection/HHBookCollectionViewCell.xib; sourceTree = "<group>"; };
 		04F01FBD1E73BCCD00304491 /* HHHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHHomeView.swift; path = Views/HomeView/HHHomeView.swift; sourceTree = "<group>"; };
 		04F01FBE1E73BCCD00304491 /* HHHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHHomeView.xib; path = Views/HomeView/HHHomeView.xib; sourceTree = "<group>"; };
+		04F01FC21E74218000304491 /* HHHomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHHomeTableViewCell.swift; path = Views/HomeView/HomeViewCell/HHHomeTableViewCell.swift; sourceTree = "<group>"; };
+		04F01FC31E74218000304491 /* HHHomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHHomeTableViewCell.xib; path = Views/HomeView/HomeViewCell/HHHomeTableViewCell.xib; sourceTree = "<group>"; };
+		04F01FC71E74251E00304491 /* HHHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHHomeViewController.swift; path = Controller/HomeController/HHHomeViewController.swift; sourceTree = "<group>"; };
 		492DF3721E73B21900C50983 /* HHReadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HHReadingViewController.swift; sourceTree = "<group>"; };
 		4942EC9D1E73399400DCC3ED /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		4942ECC71E7373DA00DCC3ED /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
@@ -124,8 +130,8 @@
 		046A3EB81E72DCA200657429 /* RecentViews */ = {
 			isa = PBXGroup;
 			children = (
-				046A3EB91E72E0F300657429 /* HHRecentTableViewCell.swift */,
 				046A3EBA1E72E0F300657429 /* HHRecentTableViewCell.xib */,
+				046A3EB91E72E0F300657429 /* HHRecentTableViewCell.swift */,
 			);
 			name = RecentViews;
 			sourceTree = "<group>";
@@ -143,6 +149,7 @@
 		046A3EC51E72FC9F00657429 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				04F01FC61E7424E500304491 /* HomeController */,
 				492DF3711E73B20100C50983 /* ReadingController */,
 				046A3EC61E72FCA700657429 /* SearchController */,
 			);
@@ -213,10 +220,28 @@
 		04F01FBA1E73B9CC00304491 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
+				04F01FC11E74215300304491 /* HomeViewCell */,
 				04F01FBD1E73BCCD00304491 /* HHHomeView.swift */,
 				04F01FBE1E73BCCD00304491 /* HHHomeView.xib */,
 			);
 			name = HomeView;
+			sourceTree = "<group>";
+		};
+		04F01FC11E74215300304491 /* HomeViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				04F01FC21E74218000304491 /* HHHomeTableViewCell.swift */,
+				04F01FC31E74218000304491 /* HHHomeTableViewCell.xib */,
+			);
+			name = HomeViewCell;
+			sourceTree = "<group>";
+		};
+		04F01FC61E7424E500304491 /* HomeController */ = {
+			isa = PBXGroup;
+			children = (
+				04F01FC71E74251E00304491 /* HHHomeViewController.swift */,
+			);
+			name = HomeController;
 			sourceTree = "<group>";
 		};
 		492DF3711E73B20100C50983 /* ReadingController */ = {
@@ -317,6 +342,7 @@
 				04F01FB41E7312F300304491 /* HHRecentSearchBookTableViewCell.xib in Resources */,
 				046A3EBC1E72E0F300657429 /* HHRecentTableViewCell.xib in Resources */,
 				046A3EB51E72D96D00657429 /* HHFavorView.xib in Resources */,
+				04F01FC51E74218000304491 /* HHHomeTableViewCell.xib in Resources */,
 				04D2F7931E72C5180033A434 /* Assets.xcassets in Resources */,
 				04D2F7911E72C5180033A434 /* Main.storyboard in Resources */,
 				04F01FB91E732C3C00304491 /* HHBookCollectionViewCell.xib in Resources */,
@@ -378,6 +404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F01FC41E74218000304491 /* HHHomeTableViewCell.swift in Sources */,
 				04F01FB81E732C3C00304491 /* HHBookCollectionViewCell.swift in Sources */,
 				046A3EBB1E72E0F300657429 /* HHRecentTableViewCell.swift in Sources */,
 				046A3EAB1E72C8AD00657429 /* InternetStatus.swift in Sources */,
@@ -389,6 +416,7 @@
 				04F01FBF1E73BCCD00304491 /* HHHomeView.swift in Sources */,
 				04D2F78C1E72C5180033A434 /* AppDelegate.swift in Sources */,
 				046A3EAA1E72C8AD00657429 /* Constant.swift in Sources */,
+				04F01FC81E74251E00304491 /* HHHomeViewController.swift in Sources */,
 				046A3EB71E72D98E00657429 /* HHFavorView.swift in Sources */,
 				4942EC9E1E73399400DCC3ED /* API.swift in Sources */,
 				492DF3731E73B21900C50983 /* HHReadingViewController.swift in Sources */,

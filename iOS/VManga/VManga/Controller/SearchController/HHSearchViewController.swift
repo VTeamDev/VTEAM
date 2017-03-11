@@ -162,7 +162,7 @@ extension HHSearchViewController{
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
         let dim = collectionView.frame.width/3
-        return CGSize(width: dim, height: dim)
+        return CGSize(width: dim, height: dim+80)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
