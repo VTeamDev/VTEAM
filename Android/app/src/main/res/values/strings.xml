@@ -8,4 +8,6 @@
     <string name="description">Description</string>
     <string name="read">Read</string>
     <string name="info_text">&#xf142;</string>
+
+    <string name="pref_favorite_key">favorite</string>
 </resources>

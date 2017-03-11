@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.vteam.vmangaandroid">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,6 +20,10 @@
         </activity>
         <activity android:name=".MangaDetailActivity" />
         <activity android:name=".MangaReadActivity"></activity>
+        <provider
+            android:authorities="info.vteam.vmangaandroid"
+            android:name=".data.MangaProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>
