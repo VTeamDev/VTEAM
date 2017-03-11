@@ -15,6 +15,12 @@ enum NetworkError: Error {
 }
 
 struct API {
+    static func testFacebook(token: String) -> Void {
+        Alamofire.request("http://wannashare.info/auth/facebook/token?access_token=\(token)").responseJSON { response in
+            //print(response.value ?? "can't get response")
+        }
+    }
+    
     static func getMangaInfo(manga_id: Int) -> Promise<Book> {
         return Promise { resolve, reject in
             Alamofire.request("http://wannashare.info/api/v1/manga/\(manga_id)").responseJSON { response in

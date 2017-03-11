@@ -11,17 +11,17 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HHHomeTableViewCell" rowHeight="157" id="KGk-i7-Jjw" customClass="HHHomeTableViewCell" customModule="VManga" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="381" height="157"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HHHomeTableViewCell" rowHeight="117" id="KGk-i7-Jjw" customClass="HHHomeTableViewCell" customModule="VManga" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="338" height="117"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="381" height="156.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="338" height="116"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="2xV-qR-8Gi">
-                        <rect key="frame" x="0.0" y="28.5" width="381" height="128.5"/>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="2xV-qR-8Gi">
+                        <rect key="frame" x="0.0" y="28.5" width="338" height="88"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dHf-Yt-CgX">
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="MwM-8Y-Gvu">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -45,11 +45,12 @@
                     <constraint firstAttribute="bottom" secondItem="2xV-qR-8Gi" secondAttribute="bottom" id="yw9-yG-ZNz"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
             <connections>
                 <outlet property="collectionView" destination="2xV-qR-8Gi" id="gBw-Q3-Hcl"/>
                 <outlet property="label" destination="Sb5-GI-Zfn" id="6UD-Bo-8Q2"/>
             </connections>
-            <point key="canvasLocation" x="64.5" y="110.5"/>
+            <point key="canvasLocation" x="43" y="90.5"/>
         </tableViewCell>
     </objects>
 </document>

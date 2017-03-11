@@ -13,5 +13,8 @@ target 'VManga' do
 	pod 'RAMAnimatedTabBarController', "~> 2.0.13" 
 	pod 'SKPhotoBrowser', '~> 4.0.1'
 	pod 'SDWebImage', '~> 4.0.0'
+	pod 'FacebookCore'
+	pod 'FacebookLogin'
+	pod 'FacebookShare'
 	
 end

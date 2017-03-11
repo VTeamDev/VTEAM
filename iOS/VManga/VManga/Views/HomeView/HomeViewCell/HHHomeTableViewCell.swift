@@ -26,10 +26,11 @@ class HHHomeTableViewCell: UITableViewCell , UICollectionViewDelegate , UICollec
         self.collectionView.backgroundColor = .none
         self.backgroundColor = .none
         let layout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: self.frame.height * 0.37, height: self.frame.height * 2/3)
+        layout.itemSize = CGSize(width: self.frame.height * 0.37, height:self.collectionView.frame.height * 1/1)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        self.collectionView.isPagingEnabled = true
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -39,6 +40,7 @@ class HHHomeTableViewCell: UITableViewCell , UICollectionViewDelegate , UICollec
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HHBookCollectionViewCell", for: indexPath) as! HHBookCollectionViewCell

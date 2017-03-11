@@ -8,32 +8,37 @@
 
 import UIKit
 
-class HHHomeView: UITableView ,UITableViewDataSource  , UITableViewDelegate {
+class HHHomeView: UIView ,UITableViewDataSource  , UITableViewDelegate {
 
+    @IBOutlet weak var tableview: UITableView!
     var topBooks = [Book]()
     var lastestBooks = [Book]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.dataSource = self
-        self.delegate = self
+        
     }
+    
     
     func setUp(){
 
+        self.tableview.dataSource = self
+        self.tableview.delegate = self
+        
         let nib = UINib(nibName: "HHHomeTableViewCell", bundle: nil)
-        self.register(nib, forCellReuseIdentifier: "HHHomeTableViewCell")
-        self.rowHeight = self.frame.height * 1.3/2
+        self.tableview.register(nib, forCellReuseIdentifier: "HHHomeTableViewCell")
+        self.tableview.rowHeight = self.frame.height * 1.4/4
+        
     }
     
-    override func numberOfRows(inSection section: Int) -> Int {
+     func numberOfRows(inSection section: Int) -> Int {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = dequeueReusableCell(withIdentifier: "HHHomeTableViewCell", for: indexPath) as! HHHomeTableViewCell
+        let cell = self.tableview.dequeueReusableCell(withIdentifier: "HHHomeTableViewCell", for: indexPath) as! HHHomeTableViewCell
         cell.setUp()
         switch indexPath.row {
         case 0:
@@ -46,6 +51,9 @@ class HHHomeView: UITableView ,UITableViewDataSource  , UITableViewDelegate {
         
         return cell
     }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return self.frame.height/4
+//    }
 
    // @IBOutlet weak var tableview: UITableView!
     /*

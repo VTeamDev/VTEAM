@@ -10,9 +10,10 @@ import UIKit
 
 class HHHomeViewController: UIViewController {
 
-    var tableView : HHHomeView!
+    var tView : HHHomeView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         searchBooks()
         // Do any additional setup after loading the view.
     }
@@ -30,14 +31,14 @@ class HHHomeViewController: UIViewController {
                 for book in top {
                     topBooks.append(book)
                 }
-                for book in top {
+                for book in lastest {
                     lastestBooks.append(book)
                 }
-                self.tableView = Bundle.main.loadNibNamed("HHHomeView", owner: nil, options: nil)?.first as! HHHomeView
-                self.tableView.lastestBooks = lastestBooks
-                self.tableView.topBooks = topBooks
-                self.tableView.setUp()
-                self.view.addSubview(self.tableView)
+                self.tView = Bundle.main.loadNibNamed("HHHomeView", owner: nil, options: nil)?.first as! HHHomeView
+                self.tView.lastestBooks = lastestBooks
+                self.tView.topBooks = topBooks
+                self.tView.setUp()
+                self.view.addSubview(self.tView)
                 
                 }.catch { e in
             }
