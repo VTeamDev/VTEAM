@@ -6,7 +6,6 @@ const passport = require('passport'),
 const FacebookTokenStrategy = require('passport-facebook-token');
 const userModel = require('../user/models/user.model');
 const mongoose = require('mongoose'), User = mongoose.model('user');
-const generatePassword = require('password-generator');
 const _ = require('lodash');
 
 module.exports = function() {
@@ -16,15 +15,15 @@ module.exports = function() {
   let config = app.get('auth');
 
   passport.use(new FacebookStrategy(config.facebook, function(accessToken, refreshToken, profile, done) {
-    console.log(accessToken);
+    // console.log(accessToken);
     axios.get('https://graph.facebook.com/me?fields=id,name,email&access_token=' + accessToken)
     .then(function(res){
       const data = res.data;
-      User.findOne({"facebookId": data.id}, function(err, res){
+      User.findOne({"email": data.email}, {password: 0}, function(err, res){
         if (err) return handleError(err);
         if (res !== null) {
           const user = _.assignIn(res, { access_token: accessToken });
-          console.log({ access_token: accessToken });
+          //console.log({ access_token: accessToken });
           return done(null, {user});
         }
         User.create({ facebookId: data.id, name: data.name, email: data.email, password: generatePassword(12, false) })
@@ -42,14 +41,16 @@ module.exports = function() {
 
   passport.use(new FacebookTokenStrategy(config.facebook, function(accessToken, refreshToken, profile, done) {
     const data = profile._json;
-    User.findOne({"facebookId": data.id}, {_id: 0, password: 0}, function(err, res){
+    data.avatars = profile.photos[0].value;
+    // console.log(data);
+    User.findOne({"email": data.email}, function(err, res){
         if (err) return handleError(err);
         if (res !== null) {
           const user = _.assignIn(res, { access_token: accessToken });
-          console.log({ access_token: accessToken });
+          //console.log({ access_token: accessToken });
           return done(null, user);
         }
-        User.create({ facebookId: data.id, name: data.name, email: data.email, password: generatePassword(12, false) })
+        User.create({ facebookId: data.id, name: data.name, email: data.email, avatars: data.avatars })
           .then(function(val){
             val.access_token = accessToken;
 

@@ -23,5 +23,5 @@ exports.list = function(params) {
 };
 
 exports.getItem = function(id) {
-    return userRepository.findById(id);
+    return userRepository.findOne({_id: id}, null);
 };

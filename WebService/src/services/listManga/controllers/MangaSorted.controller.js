@@ -4,14 +4,14 @@ const listManga = mongoose.model('listManga');
 
 const select = ['manga_id', 'thumbnail', 'title'];
 
-const skipTop = 20;
-const skipLate = 9;
+const skipTop = 90;
+const skipLate = 20;
 
 function genSkip(skip, res) {
   listManga.find({}, {_id: 0}).lean(true)
     .select(select)
     .skip(skip)
-    .limit(10)
+    .limit(20)
     .then(function(data) {
       res.send({data});
     })
