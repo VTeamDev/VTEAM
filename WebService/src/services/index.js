@@ -3,6 +3,7 @@ const authentication = require('./authentication');
 const user = require('./user');
 const manga = require('./manga');
 const mangaInfo = require('./mangaInfo');
+const realtime = require('./realtime');
 const mongoose = require('mongoose');
 
 
@@ -20,5 +21,6 @@ module.exports = function() {
   app.configure(manga);
   app.configure(mangaInfo);
   app.configure(user);
+  app.configure(realtime);
   app.configure(authentication);
 };

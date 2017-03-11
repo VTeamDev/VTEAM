@@ -36,7 +36,7 @@ var repository = function (modelName) {
     };
 
     self.update = function (id, entity) {
-        return self._findOne({ manga_id: id }).then(oldEntity => {
+        return self._findOne({ _id: id }).then(oldEntity => {
             oldEntity = _.extend(oldEntity, entity);
             return oldEntity.save();
         });

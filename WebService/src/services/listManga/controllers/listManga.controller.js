@@ -10,7 +10,6 @@ module.exports = function(options) {
   self.get = get;
 
   function find(params) {
-    console.log(params.query)
     return Promise.resolve(service.list(params))
   }
 

@@ -12,10 +12,10 @@ module.exports = function(options) {
     self.get = get;
 
     function find(params) {
-        return service.list(params);
+        return Promise.resolve(service.list(params));
     }
 
     function get(id, params){
-        return service.getItem(id);
+        return Promise.resolve(service.getItem(id));
     }
 };

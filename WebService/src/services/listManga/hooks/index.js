@@ -4,7 +4,7 @@ const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 
 exports.before = {
-  all: [hooks.remove('_id', 'url')],
+  all: [hooks.remove('url')],
   find: [],
   get: [],
   create: [],
@@ -14,7 +14,7 @@ exports.before = {
 };
 
 exports.after = {
-  all: [hooks.remove('_id', 'url')],
+  all: [hooks.remove('url')],
   find: [],
   get: [],
   create: [],

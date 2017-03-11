@@ -5,7 +5,7 @@ const hooks = require('feathers-hooks');
 
 
 exports.before = {
-  all: [hooks.remove('url')],
+  all: [],
   find: [],
   get: [],
   create: [],
@@ -15,7 +15,7 @@ exports.before = {
 };
 
 exports.after = {
-  all: [hooks.remove('url')],
+  all: [],
   find: [],
   get: [],
   create: [],
