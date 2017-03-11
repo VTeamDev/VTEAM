@@ -12,20 +12,28 @@ PODS:
   - PromiseKit/UIKit (4.1.7):
     - PromiseKit/CorePromise
   - RAMAnimatedTabBarController (2.0.13)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
+  - SKPhotoBrowser (4.0.1)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
   - PromiseKit (~> 4.0)
   - RAMAnimatedTabBarController (~> 2.0.13)
+  - SDWebImage (~> 4.0.0)
+  - SKPhotoBrowser (~> 4.0.1)
   - SwiftyJSON (~> 3.1.4)
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   PromiseKit: 779f2e41faf62d854e7593026ddbcb0bb5c5002d
   RAMAnimatedTabBarController: 2510f3b66954c3f77ea1042a35d34df8f5f3b604
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  SKPhotoBrowser: 3a7c6fc02aa1620ab17253a47a49fafda46536e8
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: c6d1ea1c21f0f5c6827abed07f85fccbeacaf11a
+PODFILE CHECKSUM: b8f7c22ec551df1b337294c371f74596190e3cf6
 
 COCOAPODS: 1.2.0

@@ -11,12 +11,13 @@ const _ = require('lodash');
 
 function sortChap(chapters) {
   const newChapters = chapters.sort(function(a, b) {
-    var x = moment(a[_.keys(a)[0]].time, "DD/MM/YYYY H:m");
-    var y = moment(b[_.keys(b)[0]].time, "DD/MM/YYYY H:m");
+    var x = moment(a.time, "DD/MM/YYYY H:m");
+    var y = moment(b.time, "DD/MM/YYYY H:m");
+    // console.log(x);
     var e = x-y;
     if (e == 0) {
-      var nameA = _.keys(a)[0];
-      var nameB = _.keys(b)[0];
+      var nameA = a.name;
+      var nameB = b.name;
       if (nameA == nameB) {
         return 0;
       } else if (nameA < nameB) {
@@ -32,8 +33,15 @@ module.exports = function(options) {
   options = Object.assign({}, defaults, options);
   return function(hook) {
     const chapters = hook.result.chapters;
-    _.assign(hook.result.chapters, sortChap(chapters));
-    console.log(sortChap(chapters));
+    const newChapters = chapters.map(function(item){
+      var name = _.keys(item)[0]
+      item = item[_.keys(item)[0]];
+      item.name = name;
+      return item;
+    })
+    hook.result.chapters = newChapters;
+    _.assign(hook.result.chapters, sortChap(newChapters));
+    //console.log(sortChap(chapters));
     hook.sortChapters = true;
   };
 };

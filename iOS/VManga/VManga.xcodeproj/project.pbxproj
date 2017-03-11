@@ -26,6 +26,11 @@
 		04F01FB41E7312F300304491 /* HHRecentSearchBookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F01FB21E7312F300304491 /* HHRecentSearchBookTableViewCell.xib */; };
 		04F01FB81E732C3C00304491 /* HHBookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01FB61E732C3C00304491 /* HHBookCollectionViewCell.swift */; };
 		04F01FB91E732C3C00304491 /* HHBookCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F01FB71E732C3C00304491 /* HHBookCollectionViewCell.xib */; };
+		04F01FBF1E73BCCD00304491 /* HHHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01FBD1E73BCCD00304491 /* HHHomeView.swift */; };
+		04F01FC01E73BCCD00304491 /* HHHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F01FBE1E73BCCD00304491 /* HHHomeView.xib */; };
+		492DF3731E73B21900C50983 /* HHReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492DF3721E73B21900C50983 /* HHReadingViewController.swift */; };
+		4942EC9E1E73399400DCC3ED /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942EC9D1E73399400DCC3ED /* API.swift */; };
+		4942ECC81E7373DA00DCC3ED /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942ECC71E7373DA00DCC3ED /* Debug.swift */; };
 		51928FB61A68053AE4C05B23 /* Pods_VManga.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908961B10D2D01A6B67B3F44 /* Pods_VManga.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,9 +56,17 @@
 		04F01FB21E7312F300304491 /* HHRecentSearchBookTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHRecentSearchBookTableViewCell.xib; path = Views/SearchViews/RecentSearchBookViews/HHRecentSearchBookTableViewCell.xib; sourceTree = "<group>"; };
 		04F01FB61E732C3C00304491 /* HHBookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHBookCollectionViewCell.swift; path = Views/BookCollection/HHBookCollectionViewCell.swift; sourceTree = "<group>"; };
 		04F01FB71E732C3C00304491 /* HHBookCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHBookCollectionViewCell.xib; path = Views/BookCollection/HHBookCollectionViewCell.xib; sourceTree = "<group>"; };
+		04F01FBD1E73BCCD00304491 /* HHHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHHomeView.swift; path = Views/HomeView/HHHomeView.swift; sourceTree = "<group>"; };
+		04F01FBE1E73BCCD00304491 /* HHHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHHomeView.xib; path = Views/HomeView/HHHomeView.xib; sourceTree = "<group>"; };
+		492DF3721E73B21900C50983 /* HHReadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HHReadingViewController.swift; sourceTree = "<group>"; };
+		4942EC9D1E73399400DCC3ED /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		4942ECC71E7373DA00DCC3ED /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		79FDE8EB6E4375DDA8802328 /* Pods-VManga.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VManga.release.xcconfig"; path = "Pods/Target Support Files/Pods-VManga/Pods-VManga.release.xcconfig"; sourceTree = "<group>"; };
 		908961B10D2D01A6B67B3F44 /* Pods_VManga.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VManga.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F917A3E4DDC141D9A9D795 /* Pods-VManga.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VManga.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VManga/Pods-VManga.debug.xcconfig"; sourceTree = "<group>"; };
+		E80E38B8AB9D979F09A6EB55 /* Pods-VMangaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VMangaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VMangaTests/Pods-VMangaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F4527BE5A8BCAE036621FE3D /* Pods-VMangaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VMangaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-VMangaTests/Pods-VMangaTests.release.xcconfig"; sourceTree = "<group>"; };
+		FEB3337BD642C2A3FD9117AA /* Pods_VMangaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VMangaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +87,7 @@
 				046A3EA71E72C8AD00657429 /* Constant.swift */,
 				046A3EA81E72C8AD00657429 /* InternetStatus.swift */,
 				046A3EA91E72C8AD00657429 /* SearchManager.swift */,
+				4942EC9D1E73399400DCC3ED /* API.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -89,6 +103,7 @@
 		046A3EB01E72C8D700657429 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04F01FBA1E73B9CC00304491 /* HomeView */,
 				04F01FB51E732C0800304491 /* BookCollection */,
 				046A3EBE1E72EE9200657429 /* SearchViews */,
 				046A3EB81E72DCA200657429 /* RecentViews */,
@@ -128,6 +143,7 @@
 		046A3EC51E72FC9F00657429 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				492DF3711E73B20100C50983 /* ReadingController */,
 				046A3EC61E72FCA700657429 /* SearchController */,
 			);
 			name = Controller;
@@ -167,6 +183,7 @@
 				046A3EAF1E72C8CD00657429 /* Model */,
 				046A3EA61E72C8AD00657429 /* DataManager */,
 				04D2F78B1E72C5180033A434 /* AppDelegate.swift */,
+				4942ECC71E7373DA00DCC3ED /* Debug.swift */,
 				04D2F78F1E72C5180033A434 /* Main.storyboard */,
 				04D2F7921E72C5180033A434 /* Assets.xcassets */,
 				04D2F7941E72C5180033A434 /* LaunchScreen.storyboard */,
@@ -193,10 +210,28 @@
 			name = BookCollection;
 			sourceTree = "<group>";
 		};
+		04F01FBA1E73B9CC00304491 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				04F01FBD1E73BCCD00304491 /* HHHomeView.swift */,
+				04F01FBE1E73BCCD00304491 /* HHHomeView.xib */,
+			);
+			name = HomeView;
+			sourceTree = "<group>";
+		};
+		492DF3711E73B20100C50983 /* ReadingController */ = {
+			isa = PBXGroup;
+			children = (
+				492DF3721E73B21900C50983 /* HHReadingViewController.swift */,
+			);
+			name = ReadingController;
+			sourceTree = "<group>";
+		};
 		B37FB90AC392FEF256FC6A1C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				908961B10D2D01A6B67B3F44 /* Pods_VManga.framework */,
+				FEB3337BD642C2A3FD9117AA /* Pods_VMangaTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -206,6 +241,8 @@
 			children = (
 				D0F917A3E4DDC141D9A9D795 /* Pods-VManga.debug.xcconfig */,
 				79FDE8EB6E4375DDA8802328 /* Pods-VManga.release.xcconfig */,
+				E80E38B8AB9D979F09A6EB55 /* Pods-VMangaTests.debug.xcconfig */,
+				F4527BE5A8BCAE036621FE3D /* Pods-VMangaTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -274,6 +311,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F01FC01E73BCCD00304491 /* HHHomeView.xib in Resources */,
 				046A3EC21E72EEC700657429 /* HHSearchViews.xib in Resources */,
 				04D2F7961E72C5180033A434 /* LaunchScreen.storyboard in Resources */,
 				04F01FB41E7312F300304491 /* HHRecentSearchBookTableViewCell.xib in Resources */,
@@ -346,10 +384,14 @@
 				046A3ECA1E7309C200657429 /* HHSearchViewController.swift in Sources */,
 				046A3EC41E72EEEE00657429 /* HHSearchViews.swift in Sources */,
 				046A3EAE1E72C8C500657429 /* Book.swift in Sources */,
+				4942ECC81E7373DA00DCC3ED /* Debug.swift in Sources */,
 				046A3EAC1E72C8AD00657429 /* SearchManager.swift in Sources */,
+				04F01FBF1E73BCCD00304491 /* HHHomeView.swift in Sources */,
 				04D2F78C1E72C5180033A434 /* AppDelegate.swift in Sources */,
 				046A3EAA1E72C8AD00657429 /* Constant.swift in Sources */,
 				046A3EB71E72D98E00657429 /* HHFavorView.swift in Sources */,
+				4942EC9E1E73399400DCC3ED /* API.swift in Sources */,
+				492DF3731E73B21900C50983 /* HHReadingViewController.swift in Sources */,
 				04F01FB31E7312F300304491 /* HHRecentSearchBookTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,6 +516,7 @@
 			baseConfigurationReference = D0F917A3E4DDC141D9A9D795 /* Pods-VManga.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = FAZH6E59JU;
 				INFOPLIST_FILE = VManga/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -488,6 +531,7 @@
 			baseConfigurationReference = 79FDE8EB6E4375DDA8802328 /* Pods-VManga.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = FAZH6E59JU;
 				INFOPLIST_FILE = VManga/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

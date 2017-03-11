@@ -22,9 +22,11 @@
     "mocha": "mocha test/ --recursive"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "body-parser": "^1.17.1",
     "compression": "^1.6.2",
     "cors": "^2.8.1",
+    "crypto": "0.0.3",
     "feathers": "^2.1.1",
     "feathers-authentication": "^0.7.12",
     "feathers-configuration": "^0.3.3",
@@ -40,7 +42,9 @@
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-facebook-token": "^3.3.0",
+    "password-generator": "^2.1.0",
     "serve-favicon": "^2.4.1",
+    "unirest": "^0.5.1",
     "winston": "^2.3.1"
   },
   "devDependencies": {

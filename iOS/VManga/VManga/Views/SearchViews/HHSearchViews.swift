@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HHSearchViews: UIView {
+class HHSearchViews: UIView,UITableViewDelegate {
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -18,6 +18,7 @@ class HHSearchViews: UIView {
     }
     */
    // @IBOutlet var view: UIView!
+    var resetRecentBook = [String]()
     @IBOutlet var view: HHSearchViews!
     @IBOutlet weak var footerView: UIView!
 
@@ -29,13 +30,17 @@ class HHSearchViews: UIView {
 
     @IBAction func invokeDelete(_ sender: Any) {
         
+       
+        UserDefaults.standard.setValue(self.resetRecentBook, forKey: "recentSearchBooks")
+        self.tableview.reloadData()
     }
     required init?(coder aDecoder: NSCoder) {
+        
         super.init(coder: aDecoder)
        //collectionView.isHidden = true
        UINib.init(nibName: "HHSearchViews", bundle: nil).instantiate(withOwner: self, options: nil)
         self.addSubview(view)
         view.frame = self.bounds
-        
+        self.tableview.delegate = self
     }
 }
