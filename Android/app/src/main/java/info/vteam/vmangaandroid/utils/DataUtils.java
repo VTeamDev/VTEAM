@@ -184,12 +184,32 @@ public class DataUtils {
 
     }
 
-    public static final Cursor getFavoriteMangaList(Context context, String mangaId){
+    public static final Cursor getFavoriteMangaListById(Context context, String mangaId){
         Uri uri = Uri.withAppendedPath(MangaContract.MangaInfoEntry.CONTENT_URI, mangaId);
         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
         Log.e("CURSOR COUNT", String.valueOf(cursor.getCount()));
 
         return cursor;
+    }
+
+    public static void insertMangaFromMangaList(Context context, ArrayList<Manga> mangas){
+        ArrayList<ContentValues> mListValues = new ArrayList<>();
+
+        for (Manga manga : mangas){
+            ContentValues cv = new ContentValues();
+            cv.put(MangaContract.MangaSearchEntry.COLUMN_MANGA_ID, manga.getmId());
+            cv.put(MangaContract.MangaSearchEntry.COLUMN_THUMBNAIL, manga.getResAvatar());
+            cv.put(MangaContract.MangaSearchEntry.COLUMN_TITLE, manga.getmTitle());
+            mListValues.add(cv);
+        }
+
+        if (!mListValues.isEmpty()){
+            ContentResolver contentResolver = context.getContentResolver();
+            contentResolver.delete(MangaContract.MangaSearchEntry.CONTENT_URI, null, null);
+
+            contentResolver.bulkInsert(MangaContract.MangaSearchEntry.CONTENT_URI, mListValues.toArray(new ContentValues[mListValues.size()]));
+
+        }
     }
 
     public static String convertStringArrayIntoString(String[] str){

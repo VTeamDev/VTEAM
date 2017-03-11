@@ -11,6 +11,7 @@ import info.vteam.vmangaandroid.R;
  */
 
 public class PreferencesUtils {
+
     public static boolean isFavoriteManga(Context context){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         boolean isFavorite = sharedPreferences.getBoolean(context.getString(R.string.pref_favorite_key), false);
@@ -24,4 +25,5 @@ public class PreferencesUtils {
         editor.putBoolean(key, value);
         editor.apply();
     }
+
 }

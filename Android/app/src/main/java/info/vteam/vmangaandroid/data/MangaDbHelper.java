@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class MangaDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "manga.db";
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 8;
 
     public MangaDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -31,7 +31,7 @@ public class MangaDbHelper extends SQLiteOpenHelper {
                 MangaContract.MangaInfoEntry.COLUMN_THUMBNAIL + " TEXT NOT NULL, " +
                 MangaContract.MangaInfoEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                 MangaContract.MangaInfoEntry.COLUMN_CATEROGY + " TEXT NOT NULL, " +
-                MangaContract.MangaInfoEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL" + ");";
+                MangaContract.MangaInfoEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL"  + ");";
 
         final String SQL_CREATE_MANGA_SEARCH_TABLE = "CREATE TABLE " + MangaContract.MangaSearchEntry.TABLE_NAME + " (" +
                 MangaContract.MangaEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +

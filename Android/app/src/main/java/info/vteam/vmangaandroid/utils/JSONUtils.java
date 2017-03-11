@@ -14,7 +14,7 @@ import info.vteam.vmangaandroid.data.MangaContract;
  */
 
 public class JSONUtils {
-    public static ContentValues[] getMangaValuesFromJson(Context context, String string) throws JSONException {
+    public static ContentValues[] getMangaValuesFromJson(Context context, String string) throws JSONException{
         JSONObject jsonObject = new JSONObject(string);
         JSONArray jsonArray = jsonObject.getJSONArray(DataUtils.DATA_PARAMS);
 

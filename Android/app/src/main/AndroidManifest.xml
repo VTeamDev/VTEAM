@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.vteam.vmangaandroid">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,14 +16,23 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.SEARCH" />
+
+                <meta-data
+                    android:name="android.app.searchable"
+                    android:resource="@xml/searchable" />
             </intent-filter>
         </activity>
         <activity android:name=".MangaDetailActivity" />
-        <activity android:name=".MangaReadActivity"></activity>
+        <activity android:name=".MangaReadActivity" />
+
         <provider
-            android:authorities="info.vteam.vmangaandroid"
             android:name=".data.MangaProvider"
-            android:exported="false"/>
+            android:authorities="info.vteam.vmangaandroid"
+            android:exported="false" />
+
+        <activity android:name=".MangaFavoriteActivity"></activity>
     </application>
 
 </manifest>
