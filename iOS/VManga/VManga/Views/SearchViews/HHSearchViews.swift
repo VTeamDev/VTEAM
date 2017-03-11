@@ -19,13 +19,20 @@ class HHSearchViews: UIView {
     */
    // @IBOutlet var view: UIView!
     @IBOutlet var view: HHSearchViews!
+    @IBOutlet weak var footerView: UIView!
 
+    @IBOutlet weak var collectionView: UICollectionView!
+   
+    @IBOutlet weak var tableview: UITableView!
     
     @IBOutlet weak var searchText: UISearchBar!
 
+    @IBAction func invokeDelete(_ sender: Any) {
+        
+    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-     
+       //collectionView.isHidden = true
        UINib.init(nibName: "HHSearchViews", bundle: nil).instantiate(withOwner: self, options: nil)
         self.addSubview(view)
         view.frame = self.bounds

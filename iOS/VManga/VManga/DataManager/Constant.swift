@@ -9,6 +9,4 @@
 import UIKit
 let urlList100books = "http://wannashare.info/api/v1/list?$limit=100&$skip=0"
 
-struct colors {
-    static let background = UIColor.init(red: 77, green: 77, blue: 77, alpha: 1)
-}
+let viewBackgroundColor = UIColor.init(red: 77, green: 77, blue: 77, alpha: 1)

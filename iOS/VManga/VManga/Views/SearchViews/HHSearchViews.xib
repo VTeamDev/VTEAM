@@ -11,7 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HHSearchViews" customModule="VManga" customModuleProvider="target">
             <connections>
+                <outlet property="collectionView" destination="GAP-cc-gdn" id="R1n-l3-D81"/>
+                <outlet property="footerView" destination="Sx4-kK-udZ" id="bkx-qe-VJd"/>
                 <outlet property="searchText" destination="DOh-tM-G8B" id="CXy-jk-D46"/>
+                <outlet property="tableview" destination="o1a-Yw-209" id="sJ5-1f-b5h"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="D7T-Zo-Guw"/>
             </connections>
         </placeholder>
@@ -24,12 +27,63 @@
                     <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="o1a-Yw-209">
+                    <rect key="frame" x="0.0" y="125.5" width="375" height="541.5"/>
+                    <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="sectionIndexBackgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lịch Sử Tìm Kiếm" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mID-TQ-rvg">
+                    <rect key="frame" x="15" y="74" width="214" height="31.5"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RsF-ZZ-dYa">
+                    <rect key="frame" x="330" y="73" width="30" height="32"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="Xoá">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="invokeDelete:" destination="-1" eventType="touchUpInside" id="UjV-22-Mrl"/>
+                    </connections>
+                </button>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="GAP-cc-gdn">
+                    <rect key="frame" x="0.0" y="64" width="375" height="563"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Bjb-y7-4nO">
+                        <size key="itemSize" width="124" height="150"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sx4-kK-udZ">
+                    <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
             <constraints>
+                <constraint firstItem="RsF-ZZ-dYa" firstAttribute="centerY" secondItem="mID-TQ-rvg" secondAttribute="centerY" id="AuX-0d-sUP"/>
+                <constraint firstItem="o1a-Yw-209" firstAttribute="top" secondItem="mID-TQ-rvg" secondAttribute="bottom" constant="20" id="Fm6-la-a9J"/>
+                <constraint firstItem="mID-TQ-rvg" firstAttribute="top" secondItem="DOh-tM-G8B" secondAttribute="bottom" constant="10" id="IHz-lF-hRs"/>
+                <constraint firstItem="GAP-cc-gdn" firstAttribute="top" secondItem="DOh-tM-G8B" secondAttribute="bottom" id="MYa-VB-8IS"/>
+                <constraint firstAttribute="trailing" secondItem="Sx4-kK-udZ" secondAttribute="trailing" id="OjU-Kl-8nB"/>
                 <constraint firstItem="DOh-tM-G8B" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Pa1-Ye-Wuo"/>
                 <constraint firstAttribute="trailing" secondItem="DOh-tM-G8B" secondAttribute="trailing" id="R5j-4X-TUW"/>
+                <constraint firstAttribute="trailing" secondItem="GAP-cc-gdn" secondAttribute="trailing" id="XJ9-FU-aV6"/>
+                <constraint firstItem="Sx4-kK-udZ" firstAttribute="top" secondItem="GAP-cc-gdn" secondAttribute="bottom" id="Yjf-qP-ssj"/>
+                <constraint firstAttribute="trailing" secondItem="RsF-ZZ-dYa" secondAttribute="trailing" constant="15" id="eds-RH-HcB"/>
+                <constraint firstAttribute="bottom" secondItem="GAP-cc-gdn" secondAttribute="bottom" constant="40" id="g9e-Hz-VVc"/>
+                <constraint firstAttribute="trailing" secondItem="o1a-Yw-209" secondAttribute="trailing" id="gA5-L9-D7Z"/>
+                <constraint firstItem="Sx4-kK-udZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gQm-a0-YkB"/>
+                <constraint firstItem="mID-TQ-rvg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="jSZ-LK-kAk"/>
+                <constraint firstItem="o1a-Yw-209" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="pT2-7p-Af0"/>
+                <constraint firstAttribute="bottom" secondItem="o1a-Yw-209" secondAttribute="bottom" id="tJ8-iK-Yn6"/>
                 <constraint firstItem="DOh-tM-G8B" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="vin-5N-Nwg"/>
+                <constraint firstItem="GAP-cc-gdn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xAt-j0-Qvm"/>
+                <constraint firstAttribute="bottom" secondItem="Sx4-kK-udZ" secondAttribute="bottom" id="zx4-pI-GIb"/>
             </constraints>
             <point key="canvasLocation" x="34.5" y="53.5"/>
         </view>
