@@ -16,19 +16,28 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ueS-UM-SJD">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="0.0" y="150" width="375" height="517"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <color key="separatorColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03F-sC-S94" customClass="ImageSlideshow" customModule="ImageSlideshow">
+                    <rect key="frame" x="0.0" y="20" width="375" height="130"/>
+                </view>
             </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
             <constraints>
                 <constraint firstItem="ueS-UM-SJD" firstAttribute="leading" secondItem="mky-xL-ulR" secondAttribute="leading" id="0vX-S2-0na"/>
-                <constraint firstItem="ueS-UM-SJD" firstAttribute="top" secondItem="mky-xL-ulR" secondAttribute="top" constant="20" id="3tF-YU-7iV"/>
+                <constraint firstItem="ueS-UM-SJD" firstAttribute="top" secondItem="mky-xL-ulR" secondAttribute="top" constant="150" id="3tF-YU-7iV"/>
+                <constraint firstAttribute="trailing" secondItem="03F-sC-S94" secondAttribute="trailing" id="BfA-sb-3qo"/>
+                <constraint firstItem="03F-sC-S94" firstAttribute="leading" secondItem="mky-xL-ulR" secondAttribute="leading" id="HD5-ab-oo3"/>
+                <constraint firstItem="ueS-UM-SJD" firstAttribute="top" secondItem="03F-sC-S94" secondAttribute="bottom" id="LNo-72-UbM"/>
                 <constraint firstAttribute="trailing" secondItem="ueS-UM-SJD" secondAttribute="trailing" id="Ynb-uy-3qt"/>
+                <constraint firstItem="03F-sC-S94" firstAttribute="top" secondItem="mky-xL-ulR" secondAttribute="top" constant="20" id="oIn-OV-7Dq"/>
                 <constraint firstAttribute="bottom" secondItem="ueS-UM-SJD" secondAttribute="bottom" id="sxG-HT-pb1"/>
             </constraints>
             <connections>
+                <outlet property="sildeshow" destination="03F-sC-S94" id="nxd-sm-5T2"/>
                 <outlet property="tableview" destination="ueS-UM-SJD" id="jaf-4L-IuO"/>
             </connections>
             <point key="canvasLocation" x="-436" y="-43"/>

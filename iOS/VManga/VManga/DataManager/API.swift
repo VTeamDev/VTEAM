@@ -11,7 +11,7 @@ import SwiftyJSON
 import PromiseKit
 
 enum NetworkError: Error {
-    case UnableToParseJSON
+    case UnableToParseJSON, RequestURLError
 }
 
 struct API {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HHHomeTableViewCell: UITableViewCell , UICollectionViewDelegate , UICollectionViewDataSource {
+class HHHomeTableViewCell: UITableViewCell , UICollectionViewDelegate , UICollectionViewDataSource  {
 
     var book = [Book]()
     
@@ -23,11 +23,11 @@ class HHHomeTableViewCell: UITableViewCell , UICollectionViewDelegate , UICollec
     }
     
     func setUp()  {
-        self.collectionView.backgroundColor = .none
-        self.backgroundColor = .none
-        let layout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: self.frame.height * 0.37, height:self.collectionView.frame.height * 1/1)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
+//        self.collectionView.backgroundColor = .none
+//        self.backgroundColor = .none
+//        let layout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+//        layout.itemSize = CGSize(width: self.collectionView.frame.height * 1/1, height:self.collectionView.frame.height * 1.1/1)
+//        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.isPagingEnabled = true
@@ -52,5 +52,6 @@ class HHHomeTableViewCell: UITableViewCell , UICollectionViewDelegate , UICollec
         //cell.setUp()
         return cell
     }
+
     
 }

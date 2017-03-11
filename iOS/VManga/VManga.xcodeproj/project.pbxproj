@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0415F0C01E745AC6002A7041 /* HHAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415F0BF1E745AC6002A7041 /* HHAccountViewController.swift */; };
 		046A3EAA1E72C8AD00657429 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EA71E72C8AD00657429 /* Constant.swift */; };
 		046A3EAB1E72C8AD00657429 /* InternetStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EA81E72C8AD00657429 /* InternetStatus.swift */; };
 		046A3EAC1E72C8AD00657429 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A3EA91E72C8AD00657429 /* SearchManager.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0415F0BF1E745AC6002A7041 /* HHAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HHAccountViewController.swift; sourceTree = "<group>"; };
 		046A3EA71E72C8AD00657429 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		046A3EA81E72C8AD00657429 /* InternetStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetStatus.swift; sourceTree = "<group>"; };
 		046A3EA91E72C8AD00657429 /* SearchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
@@ -87,6 +89,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0415F0BE1E745AA0002A7041 /* AccountController */ = {
+			isa = PBXGroup;
+			children = (
+				0415F0BF1E745AC6002A7041 /* HHAccountViewController.swift */,
+			);
+			name = AccountController;
+			sourceTree = "<group>";
+		};
 		046A3EA61E72C8AD00657429 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +159,7 @@
 		046A3EC51E72FC9F00657429 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0415F0BE1E745AA0002A7041 /* AccountController */,
 				04F01FC61E7424E500304491 /* HomeController */,
 				492DF3711E73B20100C50983 /* ReadingController */,
 				046A3EC61E72FCA700657429 /* SearchController */,
@@ -416,6 +427,7 @@
 				04F01FBF1E73BCCD00304491 /* HHHomeView.swift in Sources */,
 				04D2F78C1E72C5180033A434 /* AppDelegate.swift in Sources */,
 				046A3EAA1E72C8AD00657429 /* Constant.swift in Sources */,
+				0415F0C01E745AC6002A7041 /* HHAccountViewController.swift in Sources */,
 				04F01FC81E74251E00304491 /* HHHomeViewController.swift in Sources */,
 				046A3EB71E72D98E00657429 /* HHFavorView.swift in Sources */,
 				4942EC9E1E73399400DCC3ED /* API.swift in Sources */,
