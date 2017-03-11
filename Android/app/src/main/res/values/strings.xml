@@ -1,8 +1,20 @@
 <resources>
     <string name="app_name">V Manga</string>
+    <string name="facebook_app_id">911861368917118</string>
+    <string name="fb_login_protocol_scheme">fb911861368917118</string>
 
     <string name="search_hint">Enter manga name</string>
     <string name="action_search">Search</string>
+    <string name="action_sort">Sort By</string>
+    <string name="action_view_mode">Change orientation</string>
+
+    <string name="pref_view_mode_vertically">Vertically</string>
+    <string name="pref_view_mode_horizontally">Horizontally</string>
+
+    <string name="pref_sort_default">Default</string>
+    <string name="pref_sort_top">Top</string>
+    <string name="pref_sort_latest">Latest</string>
+    <string name="pref_sort_recommend">Recommend</string>
 
     <!--Application label string-->
     <string name="description">Description</string>

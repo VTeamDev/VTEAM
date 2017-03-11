@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pref_view_mode">
+        <item>@string/pref_view_mode_horizontally</item>
+        <item>@string/pref_view_mode_vertically</item>
+    </array>
+
+    <array name="pref_sort_mode">
+        <item>@string/pref_sort_default</item>
+        <item>@string/pref_sort_top</item>
+        <item>@string/pref_sort_latest</item>
+        <item>@string/pref_sort_recommend</item>
+    </array>
+</resources>

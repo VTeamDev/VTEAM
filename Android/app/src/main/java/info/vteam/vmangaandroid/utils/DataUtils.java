@@ -3,6 +3,7 @@ package info.vteam.vmangaandroid.utils;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
@@ -15,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import info.vteam.vmangaandroid.R;
 import info.vteam.vmangaandroid.data.MangaContract;
 import info.vteam.vmangaandroid.models.Manga;
 import info.vteam.vmangaandroid.models.MangaInfo;
@@ -31,6 +33,7 @@ public class DataUtils {
     public static final String TITLE_PARAMS = "title";
     public static final String CATEGORY_PARAMS = "category";
     public static final String DESCRIPTION_PARAMS = "content";
+    public static SharedPreferences sharedPreferences;
 
     public static ArrayList<Manga> getMangaListFromResponse(String string) throws JSONException {
         ArrayList<Manga> mangaList = new ArrayList<>();
@@ -86,17 +89,37 @@ public class DataUtils {
 
     public static String insertDataFromResponse(Context context){
         try {
-            URL url = NetworkUtils.getUrlWithContidition(context, "list");
+            URL url= null;
+            sharedPreferences = context.getSharedPreferences("sort_mode", Context.MODE_PRIVATE);
+            int mode = sharedPreferences.getInt("sort_mode", 0);
+            Log.e("MODE", String.valueOf(mode));
+            if (mode == 0){
+                url = NetworkUtils.getUrlWithContidition(context, "list");
+            } else if (mode == 1){
+                url = NetworkUtils.getUrlWithConditionAndParams(context, "list", context.getString(R.string.pref_sort_top));
+            } else if (mode == 2){
+                url = NetworkUtils.getUrlWithConditionAndParams(context, "list", context.getString(R.string.pref_sort_latest));
+            } else if (mode == 3){
+                url = NetworkUtils.getUrlWithConditionAndParams(context, "list", context.getString(R.string.pref_sort_recommend));
+            }
 
             String response = NetworkUtils.getResponseFromUrl(context, url);
 
             ArrayList<Manga> mList = getMangaListFromResponse(response);
+            Log.e("LIST SIZE", String.valueOf(mList.size()));
+            Log.e("LIST TYPE", String.valueOf(mList.get(0) instanceof Manga));
+            String totalChapter = null;
+            if (mode == 0){
+                totalChapter = getTotalChapterFromResponse(response);
+            } else {
+                totalChapter = null;
+            }
 
-            String totalChapter = getTotalChapterFromResponse(response);
-
+            Log.e("ChAP", "success");
             ArrayList<ContentValues> mListValues = new ArrayList<>();
 
             for (Manga manga : mList){
+                Log.e("INSERT", "true");
                 ContentValues cv = new ContentValues();
                 cv.put(MangaContract.MangaEntry.COLUMN_MANGA_ID, manga.getmId());
                 cv.put(MangaContract.MangaEntry.COLUMN_THUMBNAIL, manga.getResAvatar());
@@ -105,6 +128,7 @@ public class DataUtils {
             }
 
             if (!mListValues.isEmpty()){
+                Log.e("DELETE", "true");
                 ContentResolver contentResolver = context.getContentResolver();
                 contentResolver.delete(MangaContract.MangaEntry.CONTENT_URI, null, null);
 

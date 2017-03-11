@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="info.vteam.vmangaandroid.MangaReadActivity">
-
-</android.support.constraint.ConstraintLayout>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout
+        android:id="@+id/activity_manga_read"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="info.vteam.vmangaandroid.MangaReadActivity"
+        android:background="@color/colorBackground">
+        <ProgressBar
+            android:id="@+id/loading_pb"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/manga_read_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+</layout>

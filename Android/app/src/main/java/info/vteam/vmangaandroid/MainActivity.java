@@ -4,7 +4,9 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
@@ -14,6 +16,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,12 +26,24 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
+import java.util.Arrays;
 
 import info.vteam.vmangaandroid.data.MangaContract;
 import info.vteam.vmangaandroid.databinding.ActivityMainBinding;
@@ -36,7 +51,7 @@ import info.vteam.vmangaandroid.utils.DataUtils;
 
 public class MainActivity extends AppCompatActivity implements MangaAdapter.MangaOnClickHandle,
         LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener,
-        View.OnClickListener, SearchView.OnCloseListener, SwipeRefreshLayout.OnRefreshListener{
+        View.OnClickListener, SearchView.OnCloseListener, SwipeRefreshLayout.OnRefreshListener, SharedPreferences.OnSharedPreferenceChangeListener{
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     MangaAdapter mAdapter;
     Context mContext;
@@ -48,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
 
     private int mPosition = RecyclerView.NO_POSITION;
     private ActivityMainBinding mBinding;
+    private final String SORT_MODE = "sort_mode";
+    private SharedPreferences sharedPreferences;
 
     public static final String[] MAIN_MANGA_PROJECTION = {
             MangaContract.MangaEntry._ID,
@@ -73,15 +90,22 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
     public static final int INDEX_MANGA_SEARCH_THUMBNAIL = 2;
     public static final int INDEX_MANGA_SEARCH_TITLE = 3;
 
+    private LoaderManager.LoaderCallbacks callbacks;
+
+    private boolean isCreate = false;
+    private CallbackManager callbackManager;
+    private AccessTokenTracker accessTokenTracker;
+    private ProfileTracker profileTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        callbackManager = CallbackManager.Factory.create();
+
         mContext = MainActivity.this;
         mAdapter = new MangaAdapter(this, this);
-
-        new MangaTask().execute();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         mBinding.mangaListRv.setHasFixedSize(true);
@@ -91,6 +115,9 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
 
         mBinding.mangaListRv.setAdapter(mAdapter);
         mBinding.refreshSwl.setOnRefreshListener(this);
+
+        sharedPreferences = getSharedPreferences(SORT_MODE, Context.MODE_PRIVATE);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         final ImageView fabIconNew = new ImageView(this);
         fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.setting_icon));
@@ -117,7 +144,31 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         loginImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(AccessToken.getCurrentAccessToken() != null) {
+                    LoginManager.getInstance().logOut();
+                } else {
+                    accessTokenTracker.startTracking();
+                    profileTracker.startTracking();
+                    LoginManager.getInstance().logInWithReadPermissions(MainActivity.this,
+                            Arrays.asList("email", "user_photos", "public_profile"));
+                    LoginManager.getInstance().registerCallback(callbackManager,
+                            new FacebookCallback<LoginResult>() {
+                                @Override
+                                public void onSuccess(LoginResult loginResult) {
 
+                                }
+
+                                @Override
+                                public void onCancel() {
+
+                                }
+
+                                @Override
+                                public void onError(FacebookException error) {
+
+                                }
+                            });
+                }
             }
         });
 
@@ -157,13 +208,55 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
             }
         });
 
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
+                                                       AccessToken currentAccessToken) {
+                // TODO Done getting token
+                if(currentAccessToken != null) {
+                    Log.i("ACCESS_TOKEN", currentAccessToken.getToken());
+                }
+                //currentAccessToken.getPermissions()
+                //currentAccessToken.getUserId()
+                //currentAccessToken.isExpired()
+            }
+        };
+
+        // TODO Get token everywhere
+        // If the access token is available already assign it.
+        // accessToken = AccessToken.getCurrentAccessToken();
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                //currentProfile.getFirstName()
+                // TODO Get whatever information you want
+            }
+        };
+
         showLoadingBar();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        getSupportLoaderManager().initLoader(MANGA_LOADER_ID, null, this);
+        callbacks = MainActivity.this;
+        new MangaTask().execute();
+        //  getSupportLoaderManager().initLoader(MANGA_LOADER_ID, null, callbacks);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        accessTokenTracker.stopTracking();
+        profileTracker.stopTracking();
     }
 
     public void showLoadingBar(){
@@ -188,6 +281,7 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
     public Loader<Cursor> onCreateLoader(int loaderId, Bundle args) {
         switch (loaderId){
             case MANGA_LOADER_ID:
+                Log.e("LOADER ID", String.valueOf(loaderId));
                 Uri queryUri = MangaContract.MangaEntry.CONTENT_URI;
 
                 return new CursorLoader(this,
@@ -226,7 +320,15 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        loader = null;
         mAdapter.swapCursor(null);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        new MangaTask().execute();
+//        getSupportLoaderManager().destroyLoader(MANGA_LOADER_ID);
+//        getSupportLoaderManager().restartLoader(MANGA_LOADER_ID, null, this);
     }
 
     private class MangaTask extends AsyncTask<Void, Void, String>{
@@ -238,7 +340,18 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
 
         @Override
         protected void onPostExecute(String string) {
-            mBinding.infoListTv.setText("Blogtruyen, " + string + " manga");
+            if (string == null){
+                mBinding.infoListTv.setVisibility(View.INVISIBLE);
+            } else {
+                mBinding.infoListTv.setVisibility(View.VISIBLE);
+                mBinding.infoListTv.setText("Blogtruyen, " + string + " manga");
+            }
+            if (!isCreate){
+                getSupportLoaderManager().initLoader(MANGA_LOADER_ID, null, callbacks);
+                isCreate = true;
+            } else {
+                getSupportLoaderManager().restartLoader(MANGA_LOADER_ID, null, callbacks);
+            }
         }
     }
 
@@ -260,7 +373,8 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
     @Override
     public void onRefresh() {
         new MangaTask().execute();
-        getSupportLoaderManager().initLoader(MANGA_LOADER_ID, null, this);
+        getSupportLoaderManager().destroyLoader(MANGA_LOADER_ID);
+        getSupportLoaderManager().restartLoader(MANGA_LOADER_ID, null, this);
         mBinding.refreshSwl.setRefreshing(false);
     }
 
@@ -270,13 +384,77 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         inflater.inflate(R.menu.main_menu, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        SearchView searchView = (SearchView) MenuItemCompat
+                .getActionView(menu.findItem(R.id.action_search));
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(this);
 
+        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search),
+                new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+                        LoaderManager.LoaderCallbacks callbacks = MainActivity.this;
+                        getSupportLoaderManager().destroyLoader(MANGA_LOADER_ID);
+                        getSupportLoaderManager().restartLoader(MANGA_LOADER_ID, null, callbacks);
+                        return true;
+                    }
+                });
+
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_sort){
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.action_sort))
+                    .setSingleChoiceItems(R.array.pref_sort_mode,
+                            sharedPreferences.getInt(SORT_MODE, 0),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    switch (which){
+                                        case 0:{
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putInt(SORT_MODE, 0);
+                                            editor.apply();
+                                            break;
+                                        }
+                                        case 1: {
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putInt(SORT_MODE, 1);
+                                            editor.apply();
+                                            break;
+                                        }
+                                        case 2:{
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putInt(SORT_MODE, 2);
+                                            editor.apply();
+                                            break;
+                                        }
+                                        case 3: {
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putInt(SORT_MODE, 3);
+                                            editor.apply();
+                                            break;
+                                        }
+                                        default:
+                                            break;
+                                    }
+                                }
+                            }).create().show();
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -300,7 +478,8 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         if (!TextUtils.isEmpty(newText)){
             new MangaSearchTask().execute(newText);
             Log.e(LOG_TAG, newText);
-            getSupportLoaderManager().initLoader(MANGA_SEARCH_LOADER_ID, null, this);
+            getSupportLoaderManager().destroyLoader(MANGA_LOADER_ID);
+            getSupportLoaderManager().restartLoader(MANGA_SEARCH_LOADER_ID, null, this);
         }
         return true;
     }

@@ -56,6 +56,15 @@ public class NetworkUtils {
         return new URL(mangaUri.toString());
     }
 
+    public static final URL getUrlWithConditionAndParams(Context context, String condition, String params) throws MalformedURLException {
+        Uri mangaUri = Uri.parse(BASE_URL).buildUpon()
+                .appendPath(condition)
+                .appendPath(params)
+                .build();
+
+        return new URL(mangaUri.toString());
+    }
+
     public static String getResponseFromUrl(Context context, URL url){
         OkHttpClient client = new OkHttpClient();
 

@@ -237,7 +237,6 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
 
     }
 
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -264,6 +263,7 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
                 break;
             case R.id.readMangaButton:
                 Intent intent = new Intent(this, MangaReadActivity.class);
+                intent.putExtra("manga_id", idManga);
                 startActivity(intent);
         }
     }

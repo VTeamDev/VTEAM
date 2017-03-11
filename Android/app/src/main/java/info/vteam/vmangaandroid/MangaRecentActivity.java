@@ -60,8 +60,8 @@ public class MangaRecentActivity extends AppCompatActivity implements MangaAdapt
     private static final int INDEX_MANGA_INFO_IDMANGA = 1;
     private static final int INDEX_MANGA_INFO_THUMBNAIL = 2;
     private static final int INDEX_MANGA_INFO_TITLE = 3;
-    private static final int INDEX_MANGA_INFO_CATEGORY = 0;
-    private static final int INDEX_MANGA_INFO_DESCRIPTION = 0;
+    private static final int INDEX_MANGA_INFO_CATEGORY = 4;
+    private static final int INDEX_MANGA_INFO_DESCRIPTION = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,8 @@ public class MangaRecentActivity extends AppCompatActivity implements MangaAdapt
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         mBinding.mangaListRv.setHasFixedSize(true);
         mBinding.mangaListRv.setLayoutManager(gridLayoutManager);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.margin_element_grid);
+        mBinding.mangaListRv.addItemDecoration(new GridSpacingItemDecoration(3, spacingInPixels, true, 0));
         mBinding.mangaListRv.setAdapter(mAdapter);
 
         mBinding.refreshSwl.setOnRefreshListener(this);
