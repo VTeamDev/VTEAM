@@ -22,7 +22,8 @@ import info.vteam.vmangaandroid.models.Manga;
  * Created by YukiNoHara on 3/10/2017.
  */
 
-public class MangaAdapter  extends RecyclerView.Adapter<MangaAdapter.MangaViewHolder>{
+public class MangaAdapter
+        extends RecyclerView.Adapter<MangaAdapter.MangaViewHolder>{
     private static final String LOG_TAG = MangaAdapter.class.getSimpleName();
     private Context mContext;
 

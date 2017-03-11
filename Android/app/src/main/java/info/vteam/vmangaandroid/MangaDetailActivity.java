@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -43,7 +44,8 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
 
     private boolean isFavorite = false;
 
-    private Cursor mCursor;
+    private Cursor mCursorFavorite;
+    private Cursor mCursorRecent;
 
     private String favoriteStatus;
 
@@ -76,6 +78,7 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
         Intent intent = getIntent();
         idManga = intent.getStringExtra("manga_id");
         mDatabinding.favoriteBtn.setOnClickListener(this);
+        mDatabinding.readMangaButton.setOnClickListener(this);
         getSupportLoaderManager().initLoader(MANGA_INFO_LOADER_ID, null, this);
         PreferenceManager.getDefaultSharedPreferences(mContext).registerOnSharedPreferenceChangeListener(this);
 
@@ -92,8 +95,8 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
 
 
         //  Log.e(LOG_TAG, String.valueOf(isFavorite));
-        mCursor = DataUtils.getFavoriteMangaListById(mContext, idManga);
-        if (mCursor.getCount() == 0){
+        mCursorFavorite = DataUtils.getFavoriteMangaListById(mContext, idManga);
+        if (mCursorFavorite.getCount() == 0){
             isFavorite = false;
         } else {
             isFavorite = true;
@@ -214,6 +217,11 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
     public void onLoadFinished(Loader<MangaInfo> loader, MangaInfo data) {
         mangaInfo = data;
 
+        DataUtils.insertMangaInfoRecent(mContext, mangaInfo);
+
+        mCursorRecent = DataUtils.getRecentMangaList(mContext);
+        Log.e(LOG_TAG, String.valueOf(mCursorRecent.getCount()));
+
         Picasso.with(this)
                 .load(data.getmResAvatar())
                 .fit()
@@ -229,34 +237,34 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
 
     }
 
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id){
             case R.id.favorite_btn:
-                Log.e(LOG_TAG, String.valueOf(mCursor.getCount()));
-                if (mCursor.getCount() == 0){
+                Log.e(LOG_TAG, String.valueOf(mCursorFavorite.getCount()));
+                if (mCursorFavorite.getCount() == 0){
                     Log.e("FAVORITE", "added");
                     onFavoriteButtonClick(isFavorite);
+                    DataUtils.insertMangaInfo(mContext, mangaInfo);
 
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put(MangaContract.MangaInfoEntry.COLUMN_MANGAINFO_ID, mangaInfo.getmId());
-                    contentValues.put(MangaContract.MangaInfoEntry.COLUMN_TITLE, mangaInfo.getmTitle());
-                    contentValues.put(MangaContract.MangaInfoEntry.COLUMN_THUMBNAIL, mangaInfo.getmResAvatar());
-                    contentValues.put(MangaContract.MangaInfoEntry.COLUMN_CATEROGY, mangaInfo.getmCategory());
-                    contentValues.put(MangaContract.MangaInfoEntry.COLUMN_DESCRIPTION, mangaInfo.getmDescription());
-
-                    mContext.getContentResolver().insert(MangaContract.MangaInfoEntry.CONTENT_URI, contentValues);
+                    Toast.makeText(this, "Add successfully", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Log.e("FAVORITE", "deleted");
                     onFavoriteButtonClick(isFavorite);
                     Uri uri = Uri.withAppendedPath(MangaContract.MangaInfoEntry.CONTENT_URI, idManga);
-                    mContext.getContentResolver().delete(uri, null, null);
-
+                    mContext.getContentResolver().delete(uri,
+                            null,
+                            null);
                 }
                 // PreferencesUtils.setPreferences(mContext, mContext.getString(R.string.pref_favorite_key), isFavorite);
-                mCursor = DataUtils.getFavoriteMangaListById(mContext, idManga);
+                mCursorFavorite = DataUtils.getFavoriteMangaListById(mContext, idManga);
+                break;
+            case R.id.readMangaButton:
+                Intent intent = new Intent(this, MangaReadActivity.class);
+                startActivity(intent);
         }
     }
 

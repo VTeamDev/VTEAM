@@ -15,12 +15,14 @@ import android.util.Log;
  * Created by YukiNoHara on 3/10/2017.
  */
 
-public class MangaProvider extends ContentProvider {
+public class MangaProvider extends ContentProvider{
     public static final int CODE_MANGA = 100;
     public static final int CODE_MANGAINFO = 200;
     public static final int CODE_MANGA_WITH_ID = 101;
     public static final int CODE_MANGAINFO_WITH_ID = 201;
     public static final int CODE_MANGA_SEARCH = 300;
+    public static final int CODE_MANGA_INFO_RECENT = 400;
+    public static final int CODE_MANGA_INFO_RECENT_WITH_ID = 401;
 
     MangaDbHelper mOpenHelper;
 
@@ -34,6 +36,8 @@ public class MangaProvider extends ContentProvider {
         uriMatcher.addURI(MangaContract.AUTHORITY, MangaContract.PATH_MANGA_INFO, CODE_MANGAINFO);
         uriMatcher.addURI(MangaContract.AUTHORITY, MangaContract.PATH_MANGA_INFO + "/*", CODE_MANGAINFO_WITH_ID);
         uriMatcher.addURI(MangaContract.AUTHORITY, MangaContract.PATH_MANGA_SEARCH, CODE_MANGA_SEARCH);
+        uriMatcher.addURI(MangaContract.AUTHORITY, MangaContract.PATH_MANGA_INFO_RECENT, CODE_MANGA_INFO_RECENT);
+        uriMatcher.addURI(MangaContract.AUTHORITY, MangaContract.PATH_MANGA_INFO_RECENT + "/*", CODE_MANGA_INFO_RECENT );
 
         return uriMatcher;
     }
@@ -105,6 +109,16 @@ public class MangaProvider extends ContentProvider {
                         sortOrder);
                 break;
 
+            case CODE_MANGA_INFO_RECENT:
+                cursor = db.query(MangaContract.MangaInfoRecentEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
 
@@ -146,6 +160,13 @@ public class MangaProvider extends ContentProvider {
                 long _idMangaInfo = db.insert(MangaContract.MangaInfoEntry.TABLE_NAME, null, values);
                 if (_idMangaInfo > 0){
                     returnUri = ContentUris.withAppendedId(MangaContract.MangaInfoEntry.CONTENT_URI, _idMangaInfo);
+                }
+                break;
+
+            case CODE_MANGA_INFO_RECENT:
+                long _idMangaInfoRecent = db.insert(MangaContract.MangaInfoRecentEntry.TABLE_NAME, null, values);
+                if (_idMangaInfoRecent > 0){
+                    returnUri = ContentUris.withAppendedId(MangaContract.MangaInfoRecentEntry.CONTENT_URI, _idMangaInfoRecent);
                 }
                 break;
         }
@@ -247,6 +268,12 @@ public class MangaProvider extends ContentProvider {
 
             case CODE_MANGA_SEARCH:
                 rowDeleted = db.delete(MangaContract.MangaSearchEntry.TABLE_NAME,
+                        selection,
+                        selectionArgs);
+                break;
+
+            case CODE_MANGA_INFO_RECENT:
+                rowDeleted = db.delete(MangaContract.MangaInfoRecentEntry.TABLE_NAME,
                         selection,
                         selectionArgs);
                 break;

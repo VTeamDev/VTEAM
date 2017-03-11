@@ -28,32 +28,32 @@ import info.vteam.vmangaandroid.databinding.ActivityMainBinding;
 import info.vteam.vmangaandroid.models.Manga;
 import info.vteam.vmangaandroid.utils.DataUtils;
 
-public class MangaFavoriteActivity extends AppCompatActivity implements MangaAdapter.MangaOnClickHandle,
+public class MangaRecentActivity extends AppCompatActivity implements MangaAdapter.MangaOnClickHandle,
         LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener,
         View.OnClickListener, SearchView.OnCloseListener, SwipeRefreshLayout.OnRefreshListener{
-    private static final String LOG_TAG = MangaFavoriteActivity.class.getSimpleName();
     ActivityMainBinding mBinding;
-    private static final int MANGA_FAVORITE_LOADER_ID = 1111;
-    private static final int MANGA_SEARCH_FAVORITE_LOADER_ID = 1112;
+
+    private static final int MANGA_RECENT_LOADER_ID = 2111;
+    private static final int MANGA_SEARCH_RECENT_LOADER_ID = 2112;
 
     private int mPosition = RecyclerView.NO_POSITION;
 
     private MangaAdapter mAdapter;
 
     private static final String[] MANGA_INFO_PROJECTION = {
-            MangaContract.MangaInfoEntry._ID,
-            MangaContract.MangaInfoEntry.COLUMN_MANGAINFO_ID,
-            MangaContract.MangaInfoEntry.COLUMN_THUMBNAIL,
-            MangaContract.MangaInfoEntry.COLUMN_TITLE,
-            MangaContract.MangaInfoEntry.COLUMN_CATEROGY,
-            MangaContract.MangaInfoEntry.COLUMN_DESCRIPTION
+            MangaContract.MangaInfoRecentEntry._ID,
+            MangaContract.MangaInfoRecentEntry.COLUMN_MANGAINFO_ID,
+            MangaContract.MangaInfoRecentEntry.COLUMN_THUMBNAIL,
+            MangaContract.MangaInfoRecentEntry.COLUMN_TITLE,
+            MangaContract.MangaInfoRecentEntry.COLUMN_CATEROGY,
+            MangaContract.MangaInfoRecentEntry.COLUMN_DESCRIPTION
     };
 
     public static final String[] MAIN_MANGA_SEARCH_PROJECTION = {
-            MangaContract.MangaEntry._ID,
-            MangaContract.MangaEntry.COLUMN_MANGA_ID,
-            MangaContract.MangaEntry.COLUMN_THUMBNAIL,
-            MangaContract.MangaEntry.COLUMN_TITLE
+            MangaContract.MangaSearchEntry._ID,
+            MangaContract.MangaSearchEntry.COLUMN_MANGA_ID,
+            MangaContract.MangaSearchEntry.COLUMN_THUMBNAIL,
+            MangaContract.MangaSearchEntry.COLUMN_TITLE
     };
 
     private static final int INDEX_MANGA_INFO_ID = 0;
@@ -67,6 +67,7 @@ public class MangaFavoriteActivity extends AppCompatActivity implements MangaAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
         mAdapter = new MangaAdapter(this, this);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
@@ -75,22 +76,19 @@ public class MangaFavoriteActivity extends AppCompatActivity implements MangaAda
         mBinding.mangaListRv.setAdapter(mAdapter);
 
         mBinding.refreshSwl.setOnRefreshListener(this);
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        getSupportLoaderManager().initLoader(MANGA_FAVORITE_LOADER_ID, null, this);
-
+        getSupportLoaderManager().initLoader(MANGA_RECENT_LOADER_ID, null, this);
     }
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id){
-            case MANGA_FAVORITE_LOADER_ID:
-                Uri uriQuery = MangaContract.MangaInfoEntry.CONTENT_URI;
+            case MANGA_RECENT_LOADER_ID:
+                Uri uriQuery = MangaContract.MangaInfoRecentEntry.CONTENT_URI;
 
                 return new CursorLoader(this,
                         uriQuery,
@@ -99,7 +97,7 @@ public class MangaFavoriteActivity extends AppCompatActivity implements MangaAda
                         null,
                         null);
 
-            case MANGA_SEARCH_FAVORITE_LOADER_ID:
+            case MANGA_SEARCH_RECENT_LOADER_ID:
                 Uri uri = MangaContract.MangaSearchEntry.CONTENT_URI;
 
                 return new CursorLoader(this,
@@ -145,7 +143,7 @@ public class MangaFavoriteActivity extends AppCompatActivity implements MangaAda
 
     @Override
     public void onRefresh() {
-        getSupportLoaderManager().initLoader(MANGA_FAVORITE_LOADER_ID, null, this);
+        getSupportLoaderManager().initLoader(MANGA_RECENT_LOADER_ID, null, this);
         mBinding.refreshSwl.setRefreshing(false);
     }
 
@@ -166,7 +164,7 @@ public class MangaFavoriteActivity extends AppCompatActivity implements MangaAda
             ArrayList<Manga> list = mAdapter.getMangaByKey(newText);
 //            Log.e("CHECK", "1");
             DataUtils.insertMangaFromMangaList(this, list);
-            getSupportLoaderManager().initLoader(MANGA_SEARCH_FAVORITE_LOADER_ID, null, this);
+            getSupportLoaderManager().initLoader(MANGA_SEARCH_RECENT_LOADER_ID, null, this);
         }
         return false;
     }

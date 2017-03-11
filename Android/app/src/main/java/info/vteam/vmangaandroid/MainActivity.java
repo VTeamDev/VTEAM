@@ -36,7 +36,7 @@ import info.vteam.vmangaandroid.utils.DataUtils;
 
 public class MainActivity extends AppCompatActivity implements MangaAdapter.MangaOnClickHandle,
         LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener,
-        View.OnClickListener, SearchView.OnCloseListener, SwipeRefreshLayout.OnRefreshListener {
+        View.OnClickListener, SearchView.OnCloseListener, SwipeRefreshLayout.OnRefreshListener{
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     MangaAdapter mAdapter;
     Context mContext;
@@ -86,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         mBinding.mangaListRv.setHasFixedSize(true);
         mBinding.mangaListRv.setLayoutManager(gridLayoutManager);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.margin_element_grid);
+        mBinding.mangaListRv.addItemDecoration(new GridSpacingItemDecoration(3, spacingInPixels, true, 0));
+
         mBinding.mangaListRv.setAdapter(mAdapter);
         mBinding.refreshSwl.setOnRefreshListener(this);
 
@@ -129,7 +132,8 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         recentImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity.this, MangaRecentActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -162,12 +166,12 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         getSupportLoaderManager().initLoader(MANGA_LOADER_ID, null, this);
     }
 
-    public void showLoadingBar() {
+    public void showLoadingBar(){
         mBinding.mangaListRv.setVisibility(View.INVISIBLE);
         mBinding.loadingPb.setVisibility(View.VISIBLE);
     }
 
-    public void hideLoadingBar() {
+    public void hideLoadingBar(){
         mBinding.mangaListRv.setVisibility(View.VISIBLE);
         mBinding.loadingPb.setVisibility(View.INVISIBLE);
     }
@@ -182,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
 
     @Override
     public Loader<Cursor> onCreateLoader(int loaderId, Bundle args) {
-        switch (loaderId) {
+        switch (loaderId){
             case MANGA_LOADER_ID:
                 Uri queryUri = MangaContract.MangaEntry.CONTENT_URI;
 
@@ -225,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         mAdapter.swapCursor(null);
     }
 
-    private class MangaTask extends AsyncTask<Void, Void, String> {
+    private class MangaTask extends AsyncTask<Void, Void, String>{
         @Override
         protected String doInBackground(Void... params) {
             totalChapter = DataUtils.insertDataFromResponse(mContext);
@@ -238,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         }
     }
 
-    private class MangaSearchTask extends AsyncTask<String, Void, Void> {
+    private class MangaSearchTask extends AsyncTask<String, Void, Void>{
         @Override
         protected Void doInBackground(String... params) {
             Log.e(LOG_TAG, params[0]);
@@ -268,7 +272,6 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
 
-
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(this);
@@ -278,7 +281,6 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
 
     /**
      * Will be called when user press the submit button (Currently just let it empty)
-     *
      * @param query
      * @return
      */
@@ -290,13 +292,12 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
 
     /**
      * Changing the searchview's text
-     *
      * @param newText
      * @return
      */
     @Override
     public boolean onQueryTextChange(String newText) {
-        if (!TextUtils.isEmpty(newText)) {
+        if (!TextUtils.isEmpty(newText)){
             new MangaSearchTask().execute(newText);
             Log.e(LOG_TAG, newText);
             getSupportLoaderManager().initLoader(MANGA_SEARCH_LOADER_ID, null, this);

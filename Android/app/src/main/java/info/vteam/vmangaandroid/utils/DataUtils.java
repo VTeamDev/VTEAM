@@ -144,7 +144,7 @@ public class DataUtils {
 
             if (!mListValues.isEmpty()){
                 ContentResolver contentResolver = context.getContentResolver();
-                contentResolver.delete(MangaContract.MangaSearchEntry.CONTENT_URI, null, null);
+                contentResolver.delete(MangaContract.MangaEntry.CONTENT_URI,null, null);
 
                 contentResolver.bulkInsert(MangaContract.MangaSearchEntry.CONTENT_URI, mListValues.toArray(new ContentValues[mListValues.size()]));
 
@@ -186,8 +186,23 @@ public class DataUtils {
 
     public static final Cursor getFavoriteMangaListById(Context context, String mangaId){
         Uri uri = Uri.withAppendedPath(MangaContract.MangaInfoEntry.CONTENT_URI, mangaId);
-        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        Cursor cursor = context.getContentResolver().query(uri,
+                null,
+                null,
+                null,
+                null);
         Log.e("CURSOR COUNT", String.valueOf(cursor.getCount()));
+
+        return cursor;
+    }
+
+    public static Cursor getRecentMangaList(Context context){
+        Uri uri = MangaContract.MangaInfoRecentEntry.CONTENT_URI;
+        Cursor cursor = context.getContentResolver().query(uri,
+                null,
+                null,
+                null,
+                null);
 
         return cursor;
     }
@@ -212,6 +227,30 @@ public class DataUtils {
         }
     }
 
+    public static void insertMangaInfo(Context context, MangaInfo mangaInfo){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MangaContract.MangaInfoEntry.COLUMN_MANGAINFO_ID, mangaInfo.getmId());
+        contentValues.put(MangaContract.MangaInfoEntry.COLUMN_TITLE, mangaInfo.getmTitle());
+        contentValues.put(MangaContract.MangaInfoEntry.COLUMN_THUMBNAIL, mangaInfo.getmResAvatar());
+        contentValues.put(MangaContract.MangaInfoEntry.COLUMN_CATEROGY, mangaInfo.getmCategory());
+        contentValues.put(MangaContract.MangaInfoEntry.COLUMN_DESCRIPTION, mangaInfo.getmDescription());
+//        contentValues.put(MangaContract.MangaInfoEntry.COLUMN_TYPE, type);
+        context.getContentResolver().insert(MangaContract.MangaInfoEntry.CONTENT_URI, contentValues);
+
+    }
+
+    public static void insertMangaInfoRecent(Context context, MangaInfo mangaInfo){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MangaContract.MangaInfoRecentEntry.COLUMN_MANGAINFO_ID, mangaInfo.getmId());
+        contentValues.put(MangaContract.MangaInfoRecentEntry.COLUMN_TITLE, mangaInfo.getmTitle());
+        contentValues.put(MangaContract.MangaInfoRecentEntry.COLUMN_THUMBNAIL, mangaInfo.getmResAvatar());
+        contentValues.put(MangaContract.MangaInfoRecentEntry.COLUMN_CATEROGY, mangaInfo.getmCategory());
+        contentValues.put(MangaContract.MangaInfoRecentEntry.COLUMN_DESCRIPTION, mangaInfo.getmDescription());
+//        contentValues.put(MangaContract.MangaInfoEntry.COLUMN_TYPE, type);
+        context.getContentResolver().insert(MangaContract.MangaInfoRecentEntry.CONTENT_URI, contentValues);
+
+    }
+
     public static String convertStringArrayIntoString(String[] str){
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < str.length - 1; i++){
@@ -221,4 +260,5 @@ public class DataUtils {
 
         return builder.toString();
     }
+
 }

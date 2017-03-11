@@ -32,7 +32,8 @@
             android:authorities="info.vteam.vmangaandroid"
             android:exported="false" />
 
-        <activity android:name=".MangaFavoriteActivity"></activity>
+        <activity android:name=".MangaFavoriteActivity" />
+        <activity android:name=".MangaRecentActivity"></activity>
     </application>
 
 </manifest>
