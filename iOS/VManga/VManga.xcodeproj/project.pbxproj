@@ -35,6 +35,8 @@
 		04F01FC41E74218000304491 /* HHHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01FC21E74218000304491 /* HHHomeTableViewCell.swift */; };
 		04F01FC51E74218000304491 /* HHHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F01FC31E74218000304491 /* HHHomeTableViewCell.xib */; };
 		04F01FC81E74251E00304491 /* HHHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01FC71E74251E00304491 /* HHHomeViewController.swift */; };
+		4922F9471E74F0EE00E67B08 /* HHActiveUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922F9461E74F0EE00E67B08 /* HHActiveUserTableViewCell.swift */; };
+		4922F94A1E75006A00E67B08 /* fakemap.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4922F9491E75006A00E67B08 /* fakemap.jpg */; };
 		492DF3731E73B21900C50983 /* HHReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492DF3721E73B21900C50983 /* HHReadingViewController.swift */; };
 		4942EC9E1E73399400DCC3ED /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942EC9D1E73399400DCC3ED /* API.swift */; };
 		4942ECC81E7373DA00DCC3ED /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942ECC71E7373DA00DCC3ED /* Debug.swift */; };
@@ -73,6 +75,8 @@
 		04F01FC21E74218000304491 /* HHHomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHHomeTableViewCell.swift; path = Views/HomeView/HomeViewCell/HHHomeTableViewCell.swift; sourceTree = "<group>"; };
 		04F01FC31E74218000304491 /* HHHomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HHHomeTableViewCell.xib; path = Views/HomeView/HomeViewCell/HHHomeTableViewCell.xib; sourceTree = "<group>"; };
 		04F01FC71E74251E00304491 /* HHHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHHomeViewController.swift; path = Controller/HomeController/HHHomeViewController.swift; sourceTree = "<group>"; };
+		4922F9461E74F0EE00E67B08 /* HHActiveUserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHActiveUserTableViewCell.swift; path = Views/HHActiveUserTableViewCell.swift; sourceTree = "<group>"; };
+		4922F9491E75006A00E67B08 /* fakemap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fakemap.jpg; sourceTree = "<group>"; };
 		492DF3721E73B21900C50983 /* HHReadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HHReadingViewController.swift; sourceTree = "<group>"; };
 		4942EC9D1E73399400DCC3ED /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		4942ECC71E7373DA00DCC3ED /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 		046A3EB01E72C8D700657429 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4922F9451E74F0CB00E67B08 /* AccountView */,
 				0415F0C41E74949E002A7041 /* ChapterBookDetailView */,
 				04F01FBA1E73B9CC00304491 /* HomeView */,
 				04F01FB51E732C0800304491 /* BookCollection */,
@@ -224,6 +229,7 @@
 		04D2F78A1E72C5180033A434 /* VManga */ = {
 			isa = PBXGroup;
 			children = (
+				4922F9481E75006A00E67B08 /* Resources */,
 				046A3EC51E72FC9F00657429 /* Controller */,
 				046A3EB01E72C8D700657429 /* Views */,
 				046A3EAF1E72C8CD00657429 /* Model */,
@@ -281,6 +287,22 @@
 				04F01FC71E74251E00304491 /* HHHomeViewController.swift */,
 			);
 			name = HomeController;
+			sourceTree = "<group>";
+		};
+		4922F9451E74F0CB00E67B08 /* AccountView */ = {
+			isa = PBXGroup;
+			children = (
+				4922F9461E74F0EE00E67B08 /* HHActiveUserTableViewCell.swift */,
+			);
+			name = AccountView;
+			sourceTree = "<group>";
+		};
+		4922F9481E75006A00E67B08 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4922F9491E75006A00E67B08 /* fakemap.jpg */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		492DF3711E73B20100C50983 /* ReadingController */ = {
@@ -347,7 +369,7 @@
 				TargetAttributes = {
 					04D2F7871E72C5180033A434 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = FAZH6E59JU;
+						DevelopmentTeam = 3FM7JRXRKW;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -386,6 +408,7 @@
 				04D2F7931E72C5180033A434 /* Assets.xcassets in Resources */,
 				04D2F7911E72C5180033A434 /* Main.storyboard in Resources */,
 				04F01FB91E732C3C00304491 /* HHBookCollectionViewCell.xib in Resources */,
+				4922F94A1E75006A00E67B08 /* fakemap.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +474,7 @@
 				046A3ECA1E7309C200657429 /* HHSearchViewController.swift in Sources */,
 				046A3EC41E72EEEE00657429 /* HHSearchViews.swift in Sources */,
 				046A3EAE1E72C8C500657429 /* Book.swift in Sources */,
+				4922F9471E74F0EE00E67B08 /* HHActiveUserTableViewCell.swift in Sources */,
 				4942ECC81E7373DA00DCC3ED /* Debug.swift in Sources */,
 				046A3EAC1E72C8AD00657429 /* SearchManager.swift in Sources */,
 				04F01FBF1E73BCCD00304491 /* HHHomeView.swift in Sources */,
@@ -589,7 +613,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = FAZH6E59JU;
+				DEVELOPMENT_TEAM = 3FM7JRXRKW;
 				INFOPLIST_FILE = VManga/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -605,7 +629,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = FAZH6E59JU;
+				DEVELOPMENT_TEAM = 3FM7JRXRKW;
 				INFOPLIST_FILE = VManga/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

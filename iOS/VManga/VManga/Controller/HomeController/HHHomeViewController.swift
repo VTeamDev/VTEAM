@@ -15,6 +15,8 @@ class HHHomeViewController: UIViewController {
         super.viewDidLoad()
         Notification()
         searchBooks()
+        User.setCurrentUser()
+        navigationController?.setNavigationBarHidden(true, animated: false)
         // Do any additional setup after loading the view.
     }
 
@@ -55,6 +57,7 @@ class HHHomeViewController: UIViewController {
         let bookDetailViewController = storyboard?.instantiateViewController(withIdentifier: "HHBookDetailViewController") as! HHBookDetailViewController
         bookDetailViewController.book = book
         self.navigationController?.pushViewController(bookDetailViewController, animated: true)
+        //present(bookDetailViewController, animated: true, completion: nil)
     }
 
     /*

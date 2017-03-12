@@ -15,31 +15,34 @@ class HHReadingViewController: UIViewController  {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var images = [SKPhotoProtocol]()
 
-    private func getPages() -> Promise<[SKPhotoProtocol]> {
+    private func getPages(manga_id: Int, chapterId: Int) -> Promise<[SKPhotoProtocol]> {
         return Promise { resolve, reject in
-            API.getChapter(manga_id: 11909, chapterId: 0).then { pages -> Void in
+            API.getChapter(manga_id: manga_id, chapterId: chapterId).then { pages -> Void in
                 let skPages = pages.map({SKPhoto.photoWithImageURL($0)})
                 resolve(skPages)
                 }.catch { e in reject(e) }
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        SKCache.sharedCache.imageCache = CustomImageCache()
-        
+    func loadChapter(manga_id: Int, chapterId: Int) {
         SKPhotoBrowserOptions.displayAction = false
         SKPhotoBrowserOptions.backgroundColor = colors.background
         
-        getPages().then { pages -> Void in
+        getPages(manga_id: manga_id, chapterId: chapterId).then { pages -> Void in
             self.activityIndicator.stopAnimating()
             
             let browser = SKPhotoBrowser(photos: pages)
             browser.initializePageIndex(0)
             browser.delegate = self
             self.present(browser, animated: true, completion: nil)
-        }.catch { e in }
+        }.catch { e in print(e) }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = colors.background
+        SKCache.sharedCache.imageCache = CustomImageCache()
     }
 }
 
@@ -47,6 +50,7 @@ class HHReadingViewController: UIViewController  {
 
 extension HHReadingViewController: SKPhotoBrowserDelegate {
     func didDismissAtPageIndex(_ index: Int) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func didDismissActionSheetWithButtonIndex(_ buttonIndex: Int, photoIndex: Int) {

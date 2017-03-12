@@ -9,13 +9,8 @@
 import UIKit
 import SCLAlertView
 
-class HHBookDetailViewController: UIViewController , UITableViewDataSource , UITableViewDelegate{
-
-    @IBAction func swipeBack(_ sender: Any) {
-        print(0)
-        self.navigationController?.popViewController(animated: true)
-    }
-   
+class HHBookDetailViewController: UIViewController {
+    
     var isFavor : Bool!
     var indexOfMoviesfavor : Int = 0
     var bookId : [Int] = []
@@ -56,7 +51,6 @@ class HHBookDetailViewController: UIViewController , UITableViewDataSource , UIT
             bookId.append(book.manga_id)
             showFavor()
             favorBtn.setImage(UIImage(named: "like.png"), for: .normal)
-            // print(MoviesId[MoviesId.count-1])
             UserDefaults.standard.setValue(bookId, forKey: "favoriteMovies")
         }
 
@@ -79,17 +73,15 @@ class HHBookDetailViewController: UIViewController , UITableViewDataSource , UIT
         setUpFavorButton()
         setUpBookInfo()
         
-      //  print(book.description)
-       // print(book.manga_id)
-        
-        
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.navigationBar.barTintColor = colors.navigator
+
         
         self.tableview.delegate = self
         self.tableview.dataSource = self
         
         let nib = UINib(nibName: "HHChapterBookDetailTableViewCell", bundle: nil)
         self.tableview.register(nib, forCellReuseIdentifier: "HHChapterBookDetailTableViewCell")
-        // Do any additional setup after loading the view.
     }
 
     func setUpBookInfo(){
@@ -102,20 +94,7 @@ class HHBookDetailViewController: UIViewController , UITableViewDataSource , UIT
         
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(book.numberOfChapters)
-        return book.numberOfChapters
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableview.dequeueReusableCell(withIdentifier: "HHChapterBookDetailTableViewCell", for: indexPath) as! HHChapterBookDetailTableViewCell
-        cell.label.text = "Chapter " + String(indexPath.row)
-        
-        return cell 
-    }
+
     func setUpFavorButton()  {
         isFavor = false
         if (UserDefaults.standard.array(forKey: "favoriteMovies") != nil) {
@@ -134,16 +113,30 @@ class HHBookDetailViewController: UIViewController , UITableViewDataSource , UIT
         }
         
     }
+}
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension HHBookDetailViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
-    */
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return book.numberOfChapters
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableview.dequeueReusableCell(withIdentifier: "HHChapterBookDetailTableViewCell", for: indexPath) as! HHChapterBookDetailTableViewCell
+        cell.label.text = "Chapter " + String(indexPath.row)
+        
+        return cell
+    }
+}
 
+extension HHBookDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.row
+        let readingViewController = storyboard?.instantiateViewController(withIdentifier: "HHReadingViewController") as! HHReadingViewController
+        readingViewController.loadChapter(manga_id: book.manga_id, chapterId: index)
+        API.postReadingManga(_id_manga: book._id)
+        present(readingViewController, animated: true, completion: nil)
+    }
 }
