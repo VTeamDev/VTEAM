@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/VMangaAndroid.iml" filepath="$PROJECT_DIR$/VMangaAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VMangaHackathon.iml" filepath="$PROJECT_DIR$/VMangaHackathon.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

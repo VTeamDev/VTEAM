@@ -29,7 +29,7 @@
                 android:id="@+id/mangaTitleTextView"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="@id/mangaImageView"
+                app:layout_constraintLeft_toRightOf="@+id/mangaImageView"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textColor="@color/colorWhite"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -48,41 +48,17 @@
 
             <Button
                 android:id="@+id/favorite_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/star"
-                app:layout_constraintRight_toRightOf="parent"/>
-
-            <TextView
-                android:id="@+id/mangaTotalChapterTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="@+id/mangaTitleTextView"
-                app:layout_constraintTop_toBottomOf="@+id/mangaCategoryTextView"
-                android:textColor="@color/colorWhite"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:text="Total chapters"/>
-
-            <Button
-                android:id="@+id/readMangaButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mangaImageView"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/button_selector"
-                android:text="@string/read"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textAllCaps="true"
-                />
+                app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
                 android:id="@+id/descriptionLabelTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/readMangaButton"
+                app:layout_constraintTop_toBottomOf="@+id/mangaImageView"
                 android:layout_marginTop="32dp"
                 android:textColor="@color/colorWhite"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -108,9 +84,29 @@
                 android:background="@android:color/darker_gray"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mangeDescriptionTextView"
+                app:layout_constraintTop_toBottomOf="@+id/mangeDescriptionTextView"
                 android:layout_marginTop="16dp"
                 />
+
+            <TextView
+                android:id="@+id/chapterLabelTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionDivider"
+                android:layout_marginTop="32dp"
+                android:textColor="@color/colorWhite"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textAllCaps="true"
+                android:text="@string/chapter"/>
+
+            <ListView
+                android:id="@+id/chapter_lv"
+                android:layout_width="0dp"
+                android:layout_height="420dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chapterLabelTextView"/>
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

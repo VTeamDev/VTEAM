@@ -1,5 +1,9 @@
 package info.vteam.vmangaandroid.utils;
 
+/**
+ * Created by lednh on 3/6/2017.
+ */
+
 import android.content.ContentValues;
 import android.content.Context;
 
@@ -8,11 +12,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import info.vteam.vmangaandroid.data.MangaContract;
+import info.vteam.vmangaandroid.model.Manga;
 
 /**
- * Created by YukiNoHara on 3/10/2017.
+ * Handle JSON objects here!
  */
-
 public class JSONUtils {
     public static ContentValues[] getMangaValuesFromJson(Context context, String string) throws JSONException{
         JSONObject jsonObject = new JSONObject(string);
@@ -52,4 +56,3 @@ public class JSONUtils {
         return mangaInfoValues;
     }
 }
-

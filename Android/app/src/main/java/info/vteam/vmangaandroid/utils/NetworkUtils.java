@@ -1,7 +1,12 @@
 package info.vteam.vmangaandroid.utils;
 
+/**
+ * Created by lednh on 3/6/2017.
+ */
+
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -12,18 +17,18 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by YukiNoHara on 3/10/2017.
+ * All network calls go here!
  */
-
 public class NetworkUtils {
     static final String BASE_URL = "http://wannashare.info/api/v1";
     static final String LIMIT_PARAMS = "$limit";
     static final String SKIP_PARAMS = "$skip";
     static final String SEARCH_PARAMS = "search";
     static final String NAME_PARAMS = "name";
+    static final String CHAPTER_PARAMS = "chapters";
 
     public static final URL getUrlWithContidition(Context context, String condition) throws MalformedURLException {
-        final int NUM_MANGA = 12;
+        final int NUM_MANGA = 30;
         final int NUM_SKIP = 0;
 
         Uri mangaUri = Uri.parse(BASE_URL).buildUpon()
@@ -33,6 +38,14 @@ public class NetworkUtils {
                 .build();
 
         return new URL(mangaUri.toString());
+    }
+
+    public static final URL getUrlRealtimeUser(Context context) throws MalformedURLException {
+        Uri uri = Uri.parse(BASE_URL).buildUpon()
+                .appendPath("realtime")
+                .build();
+
+        return new URL(uri.toString());
     }
 
     public static final URL getUrlWithConditionAndId(Context context, String condition, String id) throws MalformedURLException {
@@ -86,4 +99,3 @@ public class NetworkUtils {
     }
 
 }
-

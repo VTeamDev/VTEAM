@@ -6,13 +6,14 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 /**
- * Created by YukiNoHara on 3/10/2017.
+ * Created by YukiNoHara on 3/8/2017.
  */
 
 public class MangaProvider extends ContentProvider{
@@ -37,7 +38,7 @@ public class MangaProvider extends ContentProvider{
         uriMatcher.addURI(MangaContract.AUTHORITY, MangaContract.PATH_MANGA_INFO + "/*", CODE_MANGAINFO_WITH_ID);
         uriMatcher.addURI(MangaContract.AUTHORITY, MangaContract.PATH_MANGA_SEARCH, CODE_MANGA_SEARCH);
         uriMatcher.addURI(MangaContract.AUTHORITY, MangaContract.PATH_MANGA_INFO_RECENT, CODE_MANGA_INFO_RECENT);
-        uriMatcher.addURI(MangaContract.AUTHORITY, MangaContract.PATH_MANGA_INFO_RECENT + "/*", CODE_MANGA_INFO_RECENT );
+        uriMatcher.addURI(MangaContract.AUTHORITY, MangaContract.PATH_MANGA_INFO_RECENT + "/*", CODE_MANGA_INFO_RECENT_WITH_ID);
 
         return uriMatcher;
     }
@@ -54,7 +55,6 @@ public class MangaProvider extends ContentProvider{
         Cursor cursor;
         final SQLiteDatabase db = mOpenHelper.getReadableDatabase();
         int match = sUriMatcher.match(uri);
-        Log.e("Match", String.valueOf(match));
 
         switch (match){
             case CODE_MANGA:
@@ -96,7 +96,6 @@ public class MangaProvider extends ContentProvider{
                         null,
                         null,
                         sortOrder);
-                Log.e("QUERY", "successful");
                 break;
 
             case CODE_MANGA_SEARCH:
@@ -138,7 +137,6 @@ public class MangaProvider extends ContentProvider{
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int match = sUriMatcher.match(uri);
-        Log.e("MATCH INSERT", String.valueOf(match));
 
         Uri returnUri = null;
         switch (match){
@@ -258,13 +256,14 @@ public class MangaProvider extends ContentProvider{
                         selectionArgs);
                 break;
 
-            case CODE_MANGAINFO_WITH_ID:
+            case CODE_MANGAINFO_WITH_ID: {
                 String mangaInfoId = uri.getLastPathSegment();
                 String[] mangaInfoIdStr = new String[]{mangaInfoId};
                 rowDeleted = db.delete(MangaContract.MangaInfoEntry.TABLE_NAME,
                         MangaContract.MangaInfoEntry.COLUMN_MANGAINFO_ID + " =?",
                         mangaInfoIdStr);
                 break;
+            }
 
             case CODE_MANGA_SEARCH:
                 rowDeleted = db.delete(MangaContract.MangaSearchEntry.TABLE_NAME,
@@ -277,6 +276,15 @@ public class MangaProvider extends ContentProvider{
                         selection,
                         selectionArgs);
                 break;
+
+            case CODE_MANGA_INFO_RECENT_WITH_ID: {
+                String id = uri.getLastPathSegment();
+                String[] args = new String[]{id};
+                rowDeleted = db.delete(MangaContract.MangaInfoRecentEntry.TABLE_NAME,
+                        MangaContract.MangaInfoRecentEntry.COLUMN_MANGAINFO_ID + " =?",
+                        args);
+                break;
+            }
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }

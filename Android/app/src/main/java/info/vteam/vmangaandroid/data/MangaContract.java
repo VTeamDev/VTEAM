@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**
- * Created by YukiNoHara on 3/10/2017.
+ * Created by YukiNoHara on 3/8/2017.
  */
 
 public class MangaContract {

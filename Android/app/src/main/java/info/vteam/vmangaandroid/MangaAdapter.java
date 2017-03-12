@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -16,10 +19,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import info.vteam.vmangaandroid.databinding.MangaListItemBinding;
-import info.vteam.vmangaandroid.models.Manga;
+import info.vteam.vmangaandroid.model.Manga;
 
 /**
- * Created by YukiNoHara on 3/10/2017.
+ * Created by YukiNoHara on 3/7/2017.
  */
 
 public class MangaAdapter
@@ -28,6 +31,7 @@ public class MangaAdapter
     private Context mContext;
 
     public MangaOnClickHandle mOnClickHandle;
+    public MangaOnLongClickHandle mOnLongClickHandle;
 
     private Cursor mCursor;
 
@@ -41,6 +45,14 @@ public class MangaAdapter
 
     public interface MangaOnClickHandle{
         void onClick(long id);
+    }
+
+    public interface MangaOnLongClickHandle{
+        void onLongClick(long id);
+    }
+
+    public void setmOnLongClickHandle(MangaOnLongClickHandle mOnLongClickHandle) {
+        this.mOnLongClickHandle = mOnLongClickHandle;
     }
 
     @Override
@@ -60,13 +72,12 @@ public class MangaAdapter
 
         mList.add(new Manga(mangaId, thumbnail, title));
         mBinding.mangaTitleTv.setText(title);
-        Log.e(LOG_TAG, position + " - " + title + " - " + thumbnail);
         Picasso.with(mContext)
                 .load(thumbnail)
                 .networkPolicy(NetworkPolicy.NO_CACHE)
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .error(R.drawable.ic_close_black_24dp)
-                .placeholder(R.drawable.progress_animation)
+                .placeholder(R.drawable.loading)
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .fit()
                 .into(mBinding.mangaAvatarImv);
@@ -88,7 +99,7 @@ public class MangaAdapter
         notifyDataSetChanged();
     }
 
-    class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
         MangaListItemBinding mBinding;
 
         public MangaViewHolder(View itemView) {
@@ -96,6 +107,7 @@ public class MangaAdapter
             mBinding = DataBindingUtil.bind(itemView);
 
             mBinding.mangaAvatarImv.setOnClickListener(this);
+            mBinding.mangaAvatarImv.setOnLongClickListener(this);
         }
 
         public MangaListItemBinding getBinding(){
@@ -106,6 +118,14 @@ public class MangaAdapter
         public void onClick(View v) {
             int position = getAdapterPosition();
             mOnClickHandle.onClick(position);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            int position = getAdapterPosition();
+            mOnLongClickHandle.onLongClick(position);
+            Log.e("LONG CLICK", String.valueOf(position));
+            return true;
         }
     }
 

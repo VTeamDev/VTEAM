@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_change_orientation"
-        android:icon="@drawable/ic_settings_black_24dp"
+        android:icon="@drawable/more"
         app:showAsAction="always"
         android:title="@string/action_view_mode"
         />

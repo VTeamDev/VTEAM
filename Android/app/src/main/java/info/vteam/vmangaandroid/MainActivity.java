@@ -9,9 +9,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
@@ -20,15 +25,22 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SnapHelper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -43,15 +55,28 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import org.json.JSONException;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import info.vteam.vmangaandroid.data.MangaContract;
 import info.vteam.vmangaandroid.databinding.ActivityMainBinding;
+import info.vteam.vmangaandroid.model.Manga;
 import info.vteam.vmangaandroid.utils.DataUtils;
+import info.vteam.vmangaandroid.utils.NetworkUtils;
+import io.socket.client.IO;
+import io.socket.emitter.Emitter;
+import io.socket.engineio.client.Socket;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements MangaAdapter.MangaOnClickHandle,
         LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener,
-        View.OnClickListener, SearchView.OnCloseListener, SwipeRefreshLayout.OnRefreshListener, SharedPreferences.OnSharedPreferenceChangeListener{
+        View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, SharedPreferences.OnSharedPreferenceChangeListener{
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     MangaAdapter mAdapter;
     Context mContext;
@@ -107,6 +132,14 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         mContext = MainActivity.this;
         mAdapter = new MangaAdapter(this, this);
 
+        LinearLayoutManager adsLinearLayoutManager =
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mBinding.adsRv.setLayoutManager(adsLinearLayoutManager);
+        mBinding.adsRv.setAdapter(new AdsAdapter());
+
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(mBinding.adsRv);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         mBinding.mangaListRv.setHasFixedSize(true);
         mBinding.mangaListRv.setLayoutManager(gridLayoutManager);
@@ -115,98 +148,10 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
 
         mBinding.mangaListRv.setAdapter(mAdapter);
         mBinding.refreshSwl.setOnRefreshListener(this);
+        mBinding.sortTv.setOnClickListener(this);
 
         sharedPreferences = getSharedPreferences(SORT_MODE, Context.MODE_PRIVATE);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-
-        final ImageView fabIconNew = new ImageView(this);
-        fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.setting_icon));
-        final FloatingActionButton rightLowerButton = new FloatingActionButton.Builder(this)
-                .setContentView(fabIconNew)
-                .build();
-
-        SubActionButton.Builder rLSubBuilder = new SubActionButton.Builder(this);
-        ImageView loginImageView = new ImageView(this);
-        ImageView favoriteImageView = new ImageView(this);
-        ImageView recentImageView = new ImageView(this);
-
-        loginImageView.setImageDrawable(getResources().getDrawable(R.drawable.login_icon));
-        favoriteImageView.setImageDrawable(getResources().getDrawable(R.drawable.favorite_icon));
-        recentImageView.setImageDrawable(getResources().getDrawable(R.drawable.recent_icon));
-
-        final FloatingActionMenu rightLowerMenu = new FloatingActionMenu.Builder(this)
-                .addSubActionView(rLSubBuilder.setContentView(loginImageView).build())
-                .addSubActionView(rLSubBuilder.setContentView(favoriteImageView).build())
-                .addSubActionView(rLSubBuilder.setContentView(recentImageView).build())
-                .attachTo(rightLowerButton)
-                .build();
-
-        loginImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(AccessToken.getCurrentAccessToken() != null) {
-                    LoginManager.getInstance().logOut();
-                } else {
-                    accessTokenTracker.startTracking();
-                    profileTracker.startTracking();
-                    LoginManager.getInstance().logInWithReadPermissions(MainActivity.this,
-                            Arrays.asList("email", "user_photos", "public_profile"));
-                    LoginManager.getInstance().registerCallback(callbackManager,
-                            new FacebookCallback<LoginResult>() {
-                                @Override
-                                public void onSuccess(LoginResult loginResult) {
-
-                                }
-
-                                @Override
-                                public void onCancel() {
-
-                                }
-
-                                @Override
-                                public void onError(FacebookException error) {
-
-                                }
-                            });
-                }
-            }
-        });
-
-        favoriteImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MangaFavoriteActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        recentImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MangaRecentActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        rightLowerMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
-            @Override
-            public void onMenuOpened(FloatingActionMenu menu) {
-                // Rotate the icon of rightLowerButton 45 degrees clockwise
-                fabIconNew.setRotation(0);
-                PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
-                ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(fabIconNew, pvhR);
-                animation.start();
-            }
-
-            @Override
-            public void onMenuClosed(FloatingActionMenu menu) {
-                // Rotate the icon of rightLowerButton 45 degrees counter-clockwise
-                fabIconNew.setRotation(45);
-                PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 0);
-                ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(fabIconNew, pvhR);
-                animation.start();
-            }
-        });
 
         accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -234,6 +179,180 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
             }
         };
 
+        final ImageView fabIconNew = new ImageView(this);
+        fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_settings_big));
+        final FloatingActionButton rightLowerButton = new FloatingActionButton.Builder(this)
+                .setContentView(fabIconNew)
+                .setBackgroundDrawable(R.drawable.my_floating_button)
+                .build();
+
+        SubActionButton.Builder rLSubBuilder = new SubActionButton.Builder(this);
+        final ImageView loginImageView = new ImageView(this);
+        loginImageView.setBackground(getResources().getDrawable(R.drawable.my_floating_button));
+        ImageView favoriteImageView = new ImageView(this);
+        favoriteImageView.setBackground(getResources().getDrawable(R.drawable.my_floating_button));
+        ImageView recentImageView = new ImageView(this);
+        recentImageView.setBackground(getResources().getDrawable(R.drawable.my_floating_button));
+        ImageView mapImageView = new ImageView(this);
+        mapImageView.setBackground(getResources().getDrawable(R.drawable.my_floating_button));
+
+        if(AccessToken.getCurrentAccessToken() != null) {
+            loginImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_exit_to_app_black_24dp));
+        } else {
+            loginImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_add));
+        }
+        favoriteImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_black_24dp));
+        recentImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_access_time));
+        mapImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_location_on));
+
+        final FloatingActionMenu rightLowerMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(rLSubBuilder.setContentView(loginImageView).build())
+                .addSubActionView(rLSubBuilder.setContentView(favoriteImageView).build())
+                .addSubActionView(rLSubBuilder.setContentView(recentImageView).build())
+                .addSubActionView(rLSubBuilder.setContentView(mapImageView).build())
+                .attachTo(rightLowerButton)
+                .build();
+
+        loginImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(AccessToken.getCurrentAccessToken() != null) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Logout")
+                            .setMessage("Are you sure you want to logout?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    LoginManager.getInstance().logOut();
+                                    loginImageView.setImageDrawable(getResources()
+                                            .getDrawable(R.drawable.ic_person_add));
+                                }
+                            }).setNegativeButton("Cancel", null)
+                            .create()
+                            .show();
+                } else {
+                    accessTokenTracker.startTracking();
+                    profileTracker.startTracking();
+                    LoginManager.getInstance().logInWithReadPermissions(MainActivity.this,
+                            Arrays.asList("email"));
+                    LoginManager.getInstance().registerCallback(callbackManager,
+                            new FacebookCallback<LoginResult>() {
+                                @Override
+                                public void onSuccess(LoginResult loginResult) {
+                                    final Uri loginUri = new Uri.Builder()
+                                            .scheme("http")
+                                            .authority("wannashare.info")
+                                            .appendPath("auth")
+                                            .appendPath("facebook")
+                                            .appendPath("token")
+                                            .appendQueryParameter("access_token",
+                                                    loginResult.getAccessToken().getToken())
+                                            .build();
+
+                                    new AsyncTask<Void, Void, Boolean>() {
+                                        @Override
+                                        protected void onPreExecute() {
+                                            super.onPreExecute();
+                                        }
+
+                                        @Override
+                                        protected Boolean doInBackground(Void... params) {
+
+                                            try {
+                                                URL loginURL = new URL(loginUri.toString());
+
+                                                OkHttpClient client = new OkHttpClient();
+                                                Request request = new Request.Builder()
+                                                        .url(loginURL)
+                                                        .build();
+                                                Response response = client.newCall(request)
+                                                        .execute();
+                                                Log.d("RESULT", response.body().string());
+                                                return true;
+                                            } catch (java.io.IOException e) {
+                                                e.printStackTrace();
+                                                return false;
+                                            }
+                                        }
+
+                                        @Override
+                                        protected void onPostExecute(Boolean isSuccess) {
+                                            super.onPostExecute(isSuccess);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putBoolean("login", isSuccess);
+                                            editor.apply();
+
+                                            if(!isSuccess) {
+                                                LoginManager.getInstance().logOut();
+                                            } else {
+                                                loginImageView.setImageDrawable(getResources()
+                                                        .getDrawable(R.drawable.ic_exit_to_app_black_24dp));
+
+                                            }
+                                        }
+                                    }.execute();
+                                }
+
+                                @Override
+                                public void onCancel() {
+                                    loginImageView.setImageDrawable(getResources()
+                                            .getDrawable(R.drawable.ic_person_add));
+                                }
+
+                                @Override
+                                public void onError(FacebookException error) {
+                                    loginImageView.setImageDrawable(getResources()
+                                            .getDrawable(R.drawable.ic_person_add));
+                                }
+                            });
+                }
+            }
+        });
+
+        favoriteImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MangaFavoriteActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        recentImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MangaRecentActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mapImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MangaLocationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        rightLowerMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
+            @Override
+            public void onMenuOpened(FloatingActionMenu menu) {
+                // Rotate the icon of rightLowerButton 45 degrees clockwise
+                fabIconNew.setRotation(0);
+                PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
+                ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(fabIconNew, pvhR);
+                animation.start();
+            }
+
+            @Override
+            public void onMenuClosed(FloatingActionMenu menu) {
+                // Rotate the icon of rightLowerButton 45 degrees counter-clockwise
+                fabIconNew.setRotation(45);
+                PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 0);
+                ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(fabIconNew, pvhR);
+                animation.start();
+            }
+        });
+
         showLoadingBar();
     }
 
@@ -248,7 +367,6 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         super.onStart();
         callbacks = MainActivity.this;
         new MangaTask().execute();
-        //  getSupportLoaderManager().initLoader(MANGA_LOADER_ID, null, callbacks);
     }
 
     @Override
@@ -281,7 +399,6 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
     public Loader<Cursor> onCreateLoader(int loaderId, Bundle args) {
         switch (loaderId){
             case MANGA_LOADER_ID:
-                Log.e("LOADER ID", String.valueOf(loaderId));
                 Uri queryUri = MangaContract.MangaEntry.CONTENT_URI;
 
                 return new CursorLoader(this,
@@ -320,15 +437,12 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        loader = null;
         mAdapter.swapCursor(null);
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         new MangaTask().execute();
-//        getSupportLoaderManager().destroyLoader(MANGA_LOADER_ID);
-//        getSupportLoaderManager().restartLoader(MANGA_LOADER_ID, null, this);
     }
 
     private class MangaTask extends AsyncTask<Void, Void, String>{
@@ -340,16 +454,20 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
 
         @Override
         protected void onPostExecute(String string) {
-            if (string == null){
-                mBinding.infoListTv.setVisibility(View.INVISIBLE);
+            if (string == null && sharedPreferences.getInt(SORT_MODE, 0) == 1){
+                mBinding.infoListTv.setText(getString(R.string.pref_sort_top));
+            } else if(string == null && sharedPreferences.getInt(SORT_MODE, 0) == 2) {
+                mBinding.infoListTv.setText(getString(R.string.pref_sort_latest));
+            } else if (string == null && sharedPreferences.getInt(SORT_MODE, 0) == 3){
+                mBinding.infoListTv.setText(getString(R.string.pref_sort_recommend));
             } else {
-                mBinding.infoListTv.setVisibility(View.VISIBLE);
-                mBinding.infoListTv.setText("Blogtruyen, " + string + " manga");
+                mBinding.infoListTv.setText(string + " manga");
             }
             if (!isCreate){
                 getSupportLoaderManager().initLoader(MANGA_LOADER_ID, null, callbacks);
                 isCreate = true;
             } else {
+                getSupportLoaderManager().destroyLoader(MANGA_LOADER_ID);
                 getSupportLoaderManager().restartLoader(MANGA_LOADER_ID, null, callbacks);
             }
         }
@@ -360,7 +478,6 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         protected Void doInBackground(String... params) {
             Log.e(LOG_TAG, params[0]);
             DataUtils.insertDataFromResponseSearchByKey(mContext, params[0]);
-            Log.e(LOG_TAG, "end called");
             return null;
         }
     }
@@ -368,52 +485,7 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
     @Override
     public void onClick(View v) {
         int id = v.getId();
-    }
-
-    @Override
-    public void onRefresh() {
-        new MangaTask().execute();
-        getSupportLoaderManager().destroyLoader(MANGA_LOADER_ID);
-        getSupportLoaderManager().restartLoader(MANGA_LOADER_ID, null, this);
-        mBinding.refreshSwl.setRefreshing(false);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) MenuItemCompat
-                .getActionView(menu.findItem(R.id.action_search));
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(false);
-        searchView.setOnQueryTextListener(this);
-
-        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search),
-                new MenuItemCompat.OnActionExpandListener() {
-                    @Override
-                    public boolean onMenuItemActionExpand(MenuItem item) {
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onMenuItemActionCollapse(MenuItem item) {
-                        LoaderManager.LoaderCallbacks callbacks = MainActivity.this;
-                        getSupportLoaderManager().destroyLoader(MANGA_LOADER_ID);
-                        getSupportLoaderManager().restartLoader(MANGA_LOADER_ID, null, callbacks);
-                        return true;
-                    }
-                });
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_sort){
+        if (id == R.id.sort_tv){
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.action_sort))
                     .setSingleChoiceItems(R.array.pref_sort_mode,
@@ -449,12 +521,50 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
                                         default:
                                             break;
                                     }
+                                    dialog.dismiss();
                                 }
                             }).create().show();
-
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    @Override
+    public void onRefresh() {
+        new MangaTask().execute();
+        getSupportLoaderManager().destroyLoader(MANGA_LOADER_ID);
+        getSupportLoaderManager().restartLoader(MANGA_LOADER_ID, null, this);
+        mBinding.refreshSwl.setRefreshing(false);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) MenuItemCompat
+                .getActionView(menu.findItem(R.id.action_search));
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(this);
+
+        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search),
+                new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                LoaderManager.LoaderCallbacks callbacks = MainActivity.this;
+                getSupportLoaderManager().destroyLoader(MANGA_SEARCH_LOADER_ID);
+                getSupportLoaderManager().restartLoader(MANGA_LOADER_ID, null, callbacks);
+                return true;
+            }
+        });
+
+        return true;
     }
 
     /**
@@ -478,16 +588,9 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
         if (!TextUtils.isEmpty(newText)){
             new MangaSearchTask().execute(newText);
             Log.e(LOG_TAG, newText);
-            getSupportLoaderManager().destroyLoader(MANGA_LOADER_ID);
             getSupportLoaderManager().restartLoader(MANGA_SEARCH_LOADER_ID, null, this);
         }
         return true;
     }
 
-    @Override
-    public boolean onClose() {
-        Log.e(LOG_TAG, "OnClose");
-//        getSupportLoaderManager().initLoader(MANGA_LOADER_ID, null, this);
-        return false;
-    }
 }

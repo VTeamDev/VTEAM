@@ -1,5 +1,6 @@
 package info.vteam.vmangaandroid;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -10,11 +11,16 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -23,12 +29,14 @@ import org.json.JSONException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import info.vteam.vmangaandroid.data.MangaContract;
 import info.vteam.vmangaandroid.databinding.ActivityMangaDetailBinding;
-import info.vteam.vmangaandroid.models.MangaInfo;
+import info.vteam.vmangaandroid.model.MangaInfo;
 import info.vteam.vmangaandroid.utils.DataUtils;
 import info.vteam.vmangaandroid.utils.NetworkUtils;
+import info.vteam.vmangaandroid.utils.PreferencesUtils;
 
 public class MangaDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<MangaInfo>, View.OnClickListener,
         SharedPreferences.OnSharedPreferenceChangeListener{
@@ -48,6 +56,11 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
     private Cursor mCursorRecent;
 
     private String favoriteStatus;
+
+    ArrayAdapter<String> mAdapter;
+
+    int chapterSize = 0;
+    ArrayList<String> list = new ArrayList<>();
 
     private static final int MANGA_INFO_LOADER_ID = 1111;
     private static boolean PREFERENCES_HAVE_BEEN_UPDATED = false;
@@ -75,10 +88,32 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
         mContext = MangaDetailActivity.this;
         mDatabinding = DataBindingUtil.setContentView(this, R.layout.activity_manga_detail);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         idManga = intent.getStringExtra("manga_id");
         mDatabinding.favoriteBtn.setOnClickListener(this);
-        mDatabinding.readMangaButton.setOnClickListener(this);
+        mAdapter = new ArrayAdapter<String>(this,
+                R.layout.manga_chapter_item,
+                R.id.chapter_tv,
+                new ArrayList<String>());
+//
+        mDatabinding.chapterLv.setAdapter(mAdapter);
+        mDatabinding.chapterLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String chapterRow = (String) mDatabinding.chapterLv.getItemAtPosition(position);
+                String[] splitStr = chapterRow.split(" ");
+                String chapter = splitStr[splitStr.length - 1];
+                Intent intentRead = new Intent(MangaDetailActivity.this, MangaReadActivity.class);
+                intentRead.putExtra("manga_id", idManga);
+                intentRead.putExtra("chapter", chapter);
+                Log.e("CHAPTER", chapter);
+                Log.e("CHAPTER", idManga);
+                startActivity(intentRead);
+            }
+        });
+        mAdapter.clear();
         getSupportLoaderManager().initLoader(MANGA_INFO_LOADER_ID, null, this);
         PreferenceManager.getDefaultSharedPreferences(mContext).registerOnSharedPreferenceChangeListener(this);
 
@@ -88,13 +123,11 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
     protected void onStart() {
         super.onStart();
         if (PREFERENCES_HAVE_BEEN_UPDATED) {
+            mAdapter.clear();
             getSupportLoaderManager().restartLoader(MANGA_INFO_LOADER_ID, null, this);
-//            isFavorite = PreferencesUtils.isFavoriteManga(mContext);
             PREFERENCES_HAVE_BEEN_UPDATED = false;
         }
 
-
-        //  Log.e(LOG_TAG, String.valueOf(isFavorite));
         mCursorFavorite = DataUtils.getFavoriteMangaListById(mContext, idManga);
         if (mCursorFavorite.getCount() == 0){
             isFavorite = false;
@@ -103,21 +136,11 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
         }
 
         if (isFavorite){
-            mDatabinding.favoriteBtn.setBackgroundResource(R.drawable.start_checked);
+            mDatabinding.favoriteBtn.setBackgroundResource(R.drawable.star_checked);
         } else {
             mDatabinding.favoriteBtn.setBackgroundResource(R.drawable.star);
         }
 
-//        if (mCursor.getCount() == 0){
-//            favoriteStatus = null;
-//        } else {
-//            favoriteStatus = mCursor.getString(INDEX_MANGA_INFO_FAVORITE);
-//        }
-//        if (favoriteStatus.equals("FALSE")){
-//            mDatabinding.favoriteBtn.setBackgroundResource(R.drawable.star);
-//        } else {
-//            mDatabinding.favoriteBtn.setBackgroundResource(R.drawable.start_checked);
-//        }
     }
 
     @Override
@@ -128,19 +151,6 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
 
     @Override
     public Loader<MangaInfo> onCreateLoader(int id, Bundle args) {
-//        switch (id){
-//            case MANGA_INFO_LOADER_ID:
-//                Uri uri = Uri.withAppendedPath(MangaContract.MangaInfoEntry.CONTENT_URI, idManga);
-//
-//                return new CursorLoader(this,
-//                        uri,
-//                        MANGA_INFO_PROJECTION,
-//                        null,
-//                        null,
-//                        null);
-//            default:
-//                throw new RuntimeException("Loader not implemented: " + id);
-//        }
         return new AsyncTaskLoader<MangaInfo>(this) {
             MangaInfo mangaInfo;
 
@@ -162,6 +172,17 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
 
                     mangaInfo = DataUtils.getMangaInfoFromResponse(json);
 
+                    chapterSize = DataUtils.getChapter(mContext, idManga);
+                    if (!list.isEmpty()){
+                        list.clear();
+                    }
+
+                    if (chapterSize > 0){
+                        for (int i = 1; i <= chapterSize; i++){
+                            list.add(mangaInfo.getmTitle() + " Chapter " + i);
+                        }
+                    }
+
                     return mangaInfo;
 
                 } catch (MalformedURLException e) {
@@ -181,41 +202,29 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
     }
 
     public void onFavoriteButtonClick(boolean isFavorite){
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
         if (isFavorite){
             mDatabinding.favoriteBtn.setBackgroundResource(R.drawable.star);
             this.isFavorite = false;
         } else {
-            mDatabinding.favoriteBtn.setBackgroundResource(R.drawable.start_checked);
+            mDatabinding.favoriteBtn.setBackgroundResource(R.drawable.star_checked);
             this.isFavorite = true;
         }
-//        editor.putBoolean(mContext.getString(R.string.pref_favorite_key), isFavorite);
-//        editor.commit();
     }
 
-    //    @Override
-//    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-//
-//
-//        Picasso.with(this)
-//                .load(data.getString(INDEX_MANGA_INFO_THUMBNAIL))
-//                .fit()
-//                .centerCrop()
-//                .into(mDatabinding.mangaImageView);
-//        mDatabinding.mangaTitleTextView.setText(data.getString(INDEX_MANGA_INFO_TITLE));
-//        mDatabinding.mangaCategoryTextView.setText(data.getString(INDEX_MANGA_INFO_CATEGORY));
-//        mDatabinding.mangeDescriptionTextView.setText(data.get);
-//    }
-//
-//    @Override
-//    public void onLoaderReset(Loader<Cursor> loader) {
-//
-//    }
-//
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home) {
+            super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void onLoadFinished(Loader<MangaInfo> loader, MangaInfo data) {
         mangaInfo = data;
+        mAdapter.clear();
+        mAdapter.addAll(list);
 
         DataUtils.insertMangaInfoRecent(mContext, mangaInfo);
 
@@ -225,6 +234,7 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
         Picasso.with(this)
                 .load(data.getmResAvatar())
                 .fit()
+                .placeholder(R.drawable.loading)
                 .centerCrop()
                 .into(mDatabinding.mangaImageView);
         mDatabinding.mangaTitleTextView.setText(data.getmTitle());
@@ -244,27 +254,20 @@ public class MangaDetailActivity extends AppCompatActivity implements LoaderMana
             case R.id.favorite_btn:
                 Log.e(LOG_TAG, String.valueOf(mCursorFavorite.getCount()));
                 if (mCursorFavorite.getCount() == 0){
-                    Log.e("FAVORITE", "added");
                     onFavoriteButtonClick(isFavorite);
                     DataUtils.insertMangaInfo(mContext, mangaInfo);
 
                     Toast.makeText(this, "Add successfully", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Log.e("FAVORITE", "deleted");
                     onFavoriteButtonClick(isFavorite);
                     Uri uri = Uri.withAppendedPath(MangaContract.MangaInfoEntry.CONTENT_URI, idManga);
                     mContext.getContentResolver().delete(uri,
                             null,
                             null);
                 }
-                // PreferencesUtils.setPreferences(mContext, mContext.getString(R.string.pref_favorite_key), isFavorite);
                 mCursorFavorite = DataUtils.getFavoriteMangaListById(mContext, idManga);
                 break;
-            case R.id.readMangaButton:
-                Intent intent = new Intent(this, MangaReadActivity.class);
-                intent.putExtra("manga_id", idManga);
-                startActivity(intent);
         }
     }
 

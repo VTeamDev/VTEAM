@@ -3,16 +3,19 @@ package info.vteam.vmangaandroid;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import info.vteam.vmangaandroid.databinding.MangaReadItemBinding;
 
 /**
- * Created by YukiNoHara on 3/11/2017.
+ * Created by lednh on 3/11/2017.
  */
 
 public class MangaReadAdapter extends RecyclerView.Adapter<MangaReadAdapter.MangaReadAdapterViewHolder> {

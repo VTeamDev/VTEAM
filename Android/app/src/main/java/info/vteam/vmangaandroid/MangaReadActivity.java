@@ -3,10 +3,14 @@ package info.vteam.vmangaandroid;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.preference.Preference;
+import android.support.annotation.IntegerRes;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
@@ -15,10 +19,15 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.SnapHelper;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -26,6 +35,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import info.vteam.vmangaandroid.databinding.ActivityMangaReadBinding;
@@ -34,7 +44,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MangaReadActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<String[]>,
+    implements LoaderManager.LoaderCallbacks<String[]>,
         SharedPreferences.OnSharedPreferenceChangeListener {
 
     //http://wannashare.info/api/v1/manga/14183
@@ -46,15 +56,20 @@ public class MangaReadActivity extends AppCompatActivity
     private LinearLayoutManager linearLayoutManager;
     private SharedPreferences sharedPreferences;
 
+    private String mangaId;
+    private int chapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_manga_read);
 
+        mangaReadBinding = DataBindingUtil.setContentView(this, R.layout.activity_manga_read);
+
         sharedPreferences = getSharedPreferences(VIEW_MODE, Context.MODE_PRIVATE);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
-        mangaReadBinding = DataBindingUtil.setContentView(this, R.layout.activity_manga_read);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         linearLayoutManager = new LinearLayoutManager(this,
                 sharedPreferences.getInt(VIEW_MODE, 0) == 0 ? LinearLayoutManager.HORIZONTAL
@@ -72,7 +87,17 @@ public class MangaReadActivity extends AppCompatActivity
         mangaReadAdapter = new MangaReadAdapter();
         mangaReadBinding.mangaReadRv.setAdapter(mangaReadAdapter);
 
-        LoaderManager.LoaderCallbacks<String[]> callbacks = MangaReadActivity.this;
+        LoaderCallbacks<String[]> callbacks = MangaReadActivity.this;
+
+        Intent intent = getIntent();
+        if(intent != null && intent.hasExtra("manga_id")) {
+            mangaId = intent.getStringExtra("manga_id");
+            chapter = Integer.parseInt(intent.getStringExtra("chapter"));
+
+            if(mangaId == null || chapter - 1 < 0) {
+                startActivity(new Intent(this, MainActivity.class));
+            }
+        }
 
         getSupportLoaderManager().initLoader(READ_MANGA_LOADER_ID, null, callbacks);
     }
@@ -103,7 +128,7 @@ public class MangaReadActivity extends AppCompatActivity
                         .appendPath("api")
                         .appendPath("v1")
                         .appendPath("manga")
-                        .appendPath("14183")
+                        .appendPath(mangaId)
                         .build();
 
                 try {
@@ -122,13 +147,8 @@ public class MangaReadActivity extends AppCompatActivity
                     JSONArray contentJsonArrays = null;
 
                     // TODO Get param from the intent!
-                    for(int i=0;i<chaptersJsonArrays.length();i++) {
-                        JSONObject chapterJsonObject = chaptersJsonArrays.getJSONObject(i);
-                        if (chapterJsonObject.getString("name").equals("chap 1")) {
-                            contentJsonArrays = chapterJsonObject.getJSONArray("content");
-                            break;
-                        }
-                    }
+                    JSONObject chapterJsonObject = chaptersJsonArrays.getJSONObject(chapter - 1);
+                    contentJsonArrays = chapterJsonObject.getJSONArray("content");
 
                     if(contentJsonArrays == null) {
                         return null;
@@ -198,26 +218,28 @@ public class MangaReadActivity extends AppCompatActivity
                     .setSingleChoiceItems(R.array.pref_view_mode,
                             sharedPreferences.getInt(VIEW_MODE, 0),
                             new Dialog.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    switch (which) {
-                                        case 0: {
-                                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                                            editor.putInt(VIEW_MODE, 0);
-                                            editor.apply();
-                                            break;
-                                        }
-                                        case 1: {
-                                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                                            editor.putInt(VIEW_MODE, 1);
-                                            editor.apply();
-                                            break;
-                                        }
-                                        default:
-                                            break;
-                                    }
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case 0: {
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt(VIEW_MODE, 0);
+                                    editor.apply();
+                                    break;
                                 }
-                            }).create().show();
+                                case 1: {
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt(VIEW_MODE, 1);
+                                    editor.apply();
+                                    break;
+                                }
+                                default:
+                                    break;
+                            }
+                        }
+                    }).create().show();
+        } else if(id == android.R.id.home) {
+            super.onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }

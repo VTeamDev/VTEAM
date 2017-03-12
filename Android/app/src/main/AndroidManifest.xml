@@ -14,33 +14,40 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".MangaReadActivity"
-            android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MangaReadActivity"
+            android:label="@string/read_name"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-
-        <activity android:name=".MangaDetailActivity" />
+        <activity
+            android:name=".MangaDetailActivity"
+            android:label="@string/detail_name" />
 
         <provider
             android:name=".data.MangaProvider"
             android:authorities="info.vteam.vmangaandroid"
             android:exported="false" />
 
-        <activity android:name=".MangaFavoriteActivity">
+        <activity
+            android:name=".MangaFavoriteActivity"
+            android:label="@string/favorite_name">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -50,12 +57,19 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".MangaRecentActivity"></activity>
+        <activity
+            android:name=".MangaRecentActivity"
+            android:label="@string/recent_name" />
+        <activity
+            android:name=".MangaLocationActivity"
+            android:label="@string/location_name" />
     </application>
 
 </manifest>

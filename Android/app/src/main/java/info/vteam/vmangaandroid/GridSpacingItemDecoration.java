@@ -7,6 +7,7 @@ import android.view.View;
 /**
  * Created by YukiNoHara on 3/11/2017.
  */
+
 public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
     private int spanCount;
@@ -51,5 +52,4 @@ public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 }
-
 

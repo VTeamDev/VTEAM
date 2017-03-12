@@ -1,5 +1,9 @@
 package info.vteam.vmangaandroid.utils;
 
+/**
+ * Created by lednh on 3/6/2017.
+ */
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -7,9 +11,8 @@ import android.preference.PreferenceManager;
 import info.vteam.vmangaandroid.R;
 
 /**
- * Created by YukiNoHara on 3/10/2017.
+ *  Retrieve app settings here
  */
-
 public class PreferencesUtils {
 
     public static boolean isFavoriteManga(Context context){
