@@ -25,13 +25,14 @@
             <subviews>
                 <searchBar contentMode="redraw" placeholder="Tìm kiếm" translatesAutoresizingMaskIntoConstraints="NO" id="DOh-tM-G8B">
                     <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                    <color key="barTintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="barTintColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="o1a-Yw-209">
                     <rect key="frame" x="0.0" y="125.5" width="375" height="541.5"/>
-                    <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <color key="sectionIndexBackgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="sectionIndexBackgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lịch Sử Tìm Kiếm" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mID-TQ-rvg">
                     <rect key="frame" x="15" y="74" width="214" height="31.5"/>
@@ -51,7 +52,7 @@
                 </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="GAP-cc-gdn">
                     <rect key="frame" x="0.0" y="64" width="375" height="563"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Bjb-y7-4nO">
                         <size key="itemSize" width="124" height="160"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -61,10 +62,10 @@
                 </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sx4-kK-udZ">
                     <rect key="frame" x="0.0" y="627" width="375" height="40"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+            <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="RsF-ZZ-dYa" firstAttribute="centerY" secondItem="mID-TQ-rvg" secondAttribute="centerY" id="AuX-0d-sUP"/>
                 <constraint firstItem="o1a-Yw-209" firstAttribute="top" secondItem="mID-TQ-rvg" secondAttribute="bottom" constant="20" id="Fm6-la-a9J"/>

@@ -32,6 +32,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="TwD-x9-F1P" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Eau-Qc-Iee"/>
                     <constraint firstAttribute="trailingMargin" secondItem="PLZ-0M-SQZ" secondAttribute="trailing" id="I6B-qp-44X"/>
@@ -41,7 +42,7 @@
                     <constraint firstItem="PLZ-0M-SQZ" firstAttribute="centerY" secondItem="TwD-x9-F1P" secondAttribute="centerY" id="pKK-cR-L7a"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+            <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="bookName" destination="PLZ-0M-SQZ" id="jQh-D3-crF"/>
             </connections>

@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HHFavorView" customModule="VManga" customModuleProvider="target">
             <connections>
                 <outlet property="EmptyFavorBookView" destination="XJY-t8-KTg" id="cTv-9X-LFM"/>
+                <outlet property="collectionview" destination="oqs-be-HEJ" id="RPm-cl-XKD"/>
                 <outlet property="favorBookView" destination="i5M-Pr-FkT" id="qvd-jN-eE1"/>
             </connections>
         </placeholder>
@@ -20,7 +21,25 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="oqs-be-HEJ">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="rjo-pf-sPp">
+                        <size key="itemSize" width="120" height="180"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="oqs-be-HEJ" secondAttribute="trailing" id="IwJ-Xm-hwh"/>
+                <constraint firstItem="oqs-be-HEJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="UNx-F8-R8o"/>
+                <constraint firstAttribute="bottom" secondItem="oqs-be-HEJ" secondAttribute="bottom" id="Yaj-t9-P8I"/>
+                <constraint firstItem="oqs-be-HEJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="b6p-ee-Z9g"/>
+            </constraints>
         </view>
         <view contentMode="scaleToFill" id="XJY-t8-KTg">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -30,7 +49,7 @@
                     <rect key="frame" x="94" y="267" width="188" height="133"/>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NPE-wC-GAI">
-                    <rect key="frame" x="62.5" y="450" width="250" height="23"/>
+                    <rect key="frame" x="63" y="450" width="250" height="23"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Không có truyện yêu thích" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzj-K0-Q0v">
                             <rect key="frame" x="0.0" y="0.0" width="250" height="23"/>
@@ -41,13 +60,13 @@
                     </subviews>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Để đánh dấu truyện yêu thích, chọn nút Yêu thích ở trang thông tin truyện." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DnT-TU-nAu">
-                    <rect key="frame" x="62.5" y="483" width="250" height="57.5"/>
+                    <rect key="frame" x="63" y="483" width="250" height="57.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+            <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="BdD-bt-Gg7" firstAttribute="width" secondItem="XJY-t8-KTg" secondAttribute="width" multiplier="1:2" id="9xG-UQ-jCA"/>
                 <constraint firstItem="BdD-bt-Gg7" firstAttribute="centerX" secondItem="XJY-t8-KTg" secondAttribute="centerX" id="KSs-Ff-fzL"/>

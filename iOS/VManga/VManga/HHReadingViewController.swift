@@ -14,7 +14,7 @@ import PromiseKit
 class HHReadingViewController: UIViewController  {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var images = [SKPhotoProtocol]()
-    
+
     private func getPages() -> Promise<[SKPhotoProtocol]> {
         return Promise { resolve, reject in
             API.getChapter(manga_id: 11909, chapterId: 0).then { pages -> Void in

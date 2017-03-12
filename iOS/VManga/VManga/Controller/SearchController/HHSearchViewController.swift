@@ -56,6 +56,8 @@ class HHSearchViewController: UIViewController , UITableViewDelegate , UITableVi
         
         Sview.collectionView.isHidden = true
         self.Sview.footerView.isHidden = true
+        Sview.collectionView.isUserInteractionEnabled = false
+        
         
     }
     
@@ -80,7 +82,10 @@ class HHSearchViewController: UIViewController , UITableViewDelegate , UITableVi
         
         self.Sview.searchText.showsCancelButton = true
         self.Sview.tableview.isHidden = true
+        Sview.tableview.isUserInteractionEnabled = false
+        
         self.Sview.collectionView.isHidden = false
+        Sview.collectionView.isUserInteractionEnabled = true
         self.Sview.footerView.isHidden = false
         
         self.Sview.collectionView.reloadData()
@@ -91,6 +96,8 @@ class HHSearchViewController: UIViewController , UITableViewDelegate , UITableVi
         self.Sview.tableview.isHidden = false
         self.Sview.collectionView.isHidden = true
         self.Sview.footerView.isHidden = true
+        Sview.collectionView.isUserInteractionEnabled = false
+        Sview.tableview.isUserInteractionEnabled = true
         
         self.Sview.searchText.showsCancelButton = false
         self.Sview.searchText.text = ""
@@ -185,7 +192,15 @@ extension HHSearchViewController{
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected collection view cell")
+        print(1)
+        API.getMangaInfo(manga_id: self.books[indexPath.row].manga_id)
+            .then { (book) -> Void in
+                let bookDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "HHBookDetailViewController") as! HHBookDetailViewController
+                bookDetailViewController.book = book
+                
+                self.navigationController?.pushViewController(bookDetailViewController, animated: true)
+            }.catch { e in
+        }
     }
     
 }

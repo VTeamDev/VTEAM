@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Djo-p5-BPZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Djo-p5-BPZ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -17,6 +16,11 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="MIg-EY-26c" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Yêu thích" image="Star-50" id="4r4-kN-nbC" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="barTintColor">
+                                <color key="value" red="0.86176215277777779" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="animation" destination="XaG-1D-pbp" id="KE2-Qx-X43"/>
                         </connections>
@@ -75,11 +79,14 @@
                             <outlet property="animation" destination="upU-we-dgW" id="Qui-Xf-Tsr"/>
                         </connections>
                     </tabBarItem>
-                    <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rx7-PW-E0Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="PRh-Fw-uFX">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="Xsq-ge-bdG" kind="relationship" relationship="rootViewController" id="C28-C8-XPC"/>
                     </connections>
@@ -122,6 +129,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Cr7-Cf-LxM">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="nUW-N6-Xl3" kind="relationship" relationship="rootViewController" id="lzn-O3-pJM"/>
                     </connections>
@@ -131,10 +142,10 @@
             </objects>
             <point key="canvasLocation" x="310" y="-98"/>
         </scene>
-        <!--Book Info-->
+        <!--Book Detail View Controller-->
         <scene sceneID="7Ab-NA-jFE">
             <objects>
-                <viewController title="Book Info" id="0Bf-MR-soy" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HHBookDetailViewController" id="0Bf-MR-soy" customClass="HHBookDetailViewController" customModule="VManga" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sV2-fK-gFp"/>
                         <viewControllerLayoutGuide type="bottom" id="pCy-Jg-glR"/>
@@ -170,6 +181,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XXz-Lu-W8o">
                                 <rect key="frame" x="16" y="412" width="343" height="235"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zng-Y8-Hfw">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
@@ -177,12 +189,22 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zng-Y8-Hfw" id="0hG-Vm-3wG">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hox-rc-XC2">
+                                <rect key="frame" x="244" y="117" width="70" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="invokeBtnFavor:" destination="0Bf-MR-soy" eventType="touchUpInside" id="vtn-yY-Fkl"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="zjO-nI-5Gw" firstAttribute="leading" secondItem="ZHo-8j-OHo" secondAttribute="leadingMargin" id="4S7-BR-NNC"/>
                             <constraint firstItem="gEo-Bv-3D0" firstAttribute="bottom" secondItem="kKW-nC-JfW" secondAttribute="bottom" id="59y-6k-njA"/>
@@ -202,9 +224,25 @@
                             <constraint firstItem="kKW-nC-JfW" firstAttribute="top" secondItem="sV2-fK-gFp" secondAttribute="bottom" id="kfN-tc-Ecu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zjO-nI-5Gw" secondAttribute="trailing" id="q7J-tF-6x1"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="pLu-6X-AB2" appends="YES" id="jRv-6o-NHg"/>
+                        </connections>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="bookName" destination="Tkb-dk-tR8" id="KI2-hQ-6Zp"/>
+                        <outlet property="content" destination="zjO-nI-5Gw" id="Cz8-bD-KVi"/>
+                        <outlet property="favorBtn" destination="hox-rc-XC2" id="lB6-5R-OSa"/>
+                        <outlet property="image" destination="kKW-nC-JfW" id="Uft-R9-SRq"/>
+                        <outlet property="tableview" destination="XXz-Lu-W8o" id="cQq-YY-rc2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ccE-sG-O2v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="pLu-6X-AB2">
+                    <connections>
+                        <action selector="swipeBack:" destination="0Bf-MR-soy" id="icE-1b-eD1"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1584.8" y="-765.96701649175418"/>
         </scene>
@@ -268,6 +306,7 @@
                         </connections>
                     </tabBarItem>
                     <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uRj-x1-wUX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

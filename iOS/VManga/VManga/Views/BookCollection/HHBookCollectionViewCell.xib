@@ -30,7 +30,7 @@
                     </label>
                 </subviews>
             </view>
-            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+            <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="wjm-9u-zJw" firstAttribute="trailing" secondItem="ZYz-6T-OF9" secondAttribute="trailing" id="H0l-Su-pke"/>
                 <constraint firstAttribute="trailing" secondItem="ZYz-6T-OF9" secondAttribute="trailing" constant="5" id="XN4-yE-ez0"/>

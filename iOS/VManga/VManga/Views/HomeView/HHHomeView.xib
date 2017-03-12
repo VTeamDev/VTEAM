@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,27 +14,21 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ueS-UM-SJD">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="ueS-UM-SJD">
                     <rect key="frame" x="0.0" y="150" width="375" height="517"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                    <color key="separatorColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                    <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="separatorColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="sectionIndexBackgroundColor" white="0.13569097386466134" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03F-sC-S94" customClass="ImageSlideshow" customModule="ImageSlideshow">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="03F-sC-S94" customClass="ImageSlideshow" customModule="ImageSlideshow">
                     <rect key="frame" x="0.0" y="20" width="375" height="130"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-            <constraints>
-                <constraint firstItem="ueS-UM-SJD" firstAttribute="leading" secondItem="mky-xL-ulR" secondAttribute="leading" id="0vX-S2-0na"/>
-                <constraint firstItem="ueS-UM-SJD" firstAttribute="top" secondItem="mky-xL-ulR" secondAttribute="top" constant="150" id="3tF-YU-7iV"/>
-                <constraint firstAttribute="trailing" secondItem="03F-sC-S94" secondAttribute="trailing" id="BfA-sb-3qo"/>
-                <constraint firstItem="03F-sC-S94" firstAttribute="leading" secondItem="mky-xL-ulR" secondAttribute="leading" id="HD5-ab-oo3"/>
-                <constraint firstItem="ueS-UM-SJD" firstAttribute="top" secondItem="03F-sC-S94" secondAttribute="bottom" id="LNo-72-UbM"/>
-                <constraint firstAttribute="trailing" secondItem="ueS-UM-SJD" secondAttribute="trailing" id="Ynb-uy-3qt"/>
-                <constraint firstItem="03F-sC-S94" firstAttribute="top" secondItem="mky-xL-ulR" secondAttribute="top" constant="20" id="oIn-OV-7Dq"/>
-                <constraint firstAttribute="bottom" secondItem="ueS-UM-SJD" secondAttribute="bottom" id="sxG-HT-pb1"/>
-            </constraints>
+            <color key="backgroundColor" white="0.13569097390000001" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="sildeshow" destination="03F-sC-S94" id="nxd-sm-5T2"/>
                 <outlet property="tableview" destination="ueS-UM-SJD" id="jaf-4L-IuO"/>

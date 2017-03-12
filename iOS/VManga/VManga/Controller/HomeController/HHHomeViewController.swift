@@ -13,7 +13,7 @@ class HHHomeViewController: UIViewController {
     var tView : HHHomeView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        Notification()
         searchBooks()
         // Do any additional setup after loading the view.
     }
@@ -45,6 +45,16 @@ class HHHomeViewController: UIViewController {
             }.catch { e in
         }
 
+    }
+
+    func Notification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(movieDetail), name: NSNotification.Name(rawValue: "mainDetail"), object: nil)
+    }
+    func movieDetail(_ notification : Notification) {
+        let book = notification.userInfo?["book"] as! Book
+        let bookDetailViewController = storyboard?.instantiateViewController(withIdentifier: "HHBookDetailViewController") as! HHBookDetailViewController
+        bookDetailViewController.book = book
+        self.navigationController?.pushViewController(bookDetailViewController, animated: true)
     }
 
     /*

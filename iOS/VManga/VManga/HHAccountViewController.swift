@@ -12,15 +12,21 @@ import FacebookCore
 
 class HHAccountViewController: UIViewController {
     
+    func setCurrentUser() {
+        if let accessToken = AccessToken.current {
+            API.getUserWithFbToken(token: accessToken.authenticationToken).then { user -> Void in
+                User.current = user
+            }.catch { e in }
+        }
+    }
+    
     private func addLoginButton() {
         let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userFriends ])
         loginButton.center = view.center
         loginButton.delegate = self
         view.addSubview(loginButton)
         
-        if let accessToken = AccessToken.current {
-            API.testFacebook(token: accessToken.authenticationToken)
-        }
+        setCurrentUser()
     }
 
     override func viewDidLoad() {
@@ -33,9 +39,7 @@ class HHAccountViewController: UIViewController {
 
 extension HHAccountViewController: LoginButtonDelegate {
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
-        if let accessToken = AccessToken.current {
-            API.testFacebook(token: accessToken.authenticationToken)
-        }
+        setCurrentUser()
     }
     
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
