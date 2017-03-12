@@ -9,4 +9,5 @@
     <!--Color for button-->
     <color name="buttonPressed">#b58900</color>
     <color name="buttonDefault">@color/colorAccent</color>
+
 </resources>

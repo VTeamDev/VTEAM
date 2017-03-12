@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.preference.Preference;
 import android.support.annotation.IntegerRes;
 import android.support.v4.app.LoaderManager;
@@ -25,6 +26,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.facebook.AccessToken;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -39,8 +41,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import info.vteam.vmangaandroid.databinding.ActivityMangaReadBinding;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MangaReadActivity extends AppCompatActivity
@@ -66,10 +70,10 @@ public class MangaReadActivity extends AppCompatActivity
 
         mangaReadBinding = DataBindingUtil.setContentView(this, R.layout.activity_manga_read);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         sharedPreferences = getSharedPreferences(VIEW_MODE, Context.MODE_PRIVATE);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         linearLayoutManager = new LinearLayoutManager(this,
                 sharedPreferences.getInt(VIEW_MODE, 0) == 0 ? LinearLayoutManager.HORIZONTAL
@@ -97,6 +101,77 @@ public class MangaReadActivity extends AppCompatActivity
             if(mangaId == null || chapter - 1 < 0) {
                 startActivity(new Intent(this, MainActivity.class));
             }
+        }
+
+        SharedPreferences userIsReadingPrefs = getSharedPreferences("USER_MODE", MODE_PRIVATE);
+        final String userId = userIsReadingPrefs.getString("user_id", null);
+
+        if(userId != null) {
+
+            new AsyncTask<Void, Void, String>() {
+                @Override
+                protected String doInBackground(Void... params) {
+                    OkHttpClient client = new OkHttpClient();
+                    Uri userReadingUri = new Uri.Builder()
+                            .scheme("http")
+                            .authority("wannashare.info")
+                            .appendPath("api")
+                            .appendPath("v1")
+                            .appendPath("list")
+                            .appendPath(mangaId)
+                            .build();
+                    try {
+                        URL userReadingURL = new URL(userReadingUri.toString());
+                        Request request = new Request.Builder()
+                                .url(userReadingURL)
+                                .build();
+                        Response response = client.newCall(request).execute();
+                        JSONObject result = new JSONObject(response.body().string());
+                       return result.getString("_id");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(final String s) {
+                    if(s!= null) {
+                        new AsyncTask<Void, Void, Void>() {
+                            @Override
+                            protected Void doInBackground(Void... params) {
+                                Log.e("GET CALLED", "DONE");
+                                OkHttpClient client = new OkHttpClient();
+                                Uri userReadingUri = new Uri.Builder()
+                                        .scheme("http")
+                                        .authority("wannashare.info")
+                                        .appendPath("api")
+                                        .appendPath("v1")
+                                        .appendPath("realtime")
+                                        .build();
+                                try {
+                                    RequestBody fromBody = new FormBody.Builder()
+                                            .add("user", userId)
+                                            .add("manga", s)
+                                            .build();
+                                    URL userReadingURL = new URL(userReadingUri.toString());
+                                    Request request = new Request.Builder()
+                                            .url(userReadingURL)
+                                            .post(fromBody)
+                                            .build();
+                                    Response response = client.newCall(request).execute();
+                                    Log.e("RESPONSE", response.body().string());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                return null;
+                            }
+                        }.execute();
+                    }
+                }
+            }.execute();
         }
 
         getSupportLoaderManager().initLoader(READ_MANGA_LOADER_ID, null, callbacks);

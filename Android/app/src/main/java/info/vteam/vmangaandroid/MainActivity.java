@@ -56,6 +56,7 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -267,9 +268,21 @@ public class MainActivity extends AppCompatActivity implements MangaAdapter.Mang
                                                         .build();
                                                 Response response = client.newCall(request)
                                                         .execute();
-                                                Log.d("RESULT", response.body().string());
+                                                JSONObject responseResult =
+                                                        new JSONObject(response.body().string());
+                                                SharedPreferences sharedPreferences =
+                                                        getApplicationContext()
+                                                                .getSharedPreferences("USER_MODE", Context.MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                Log.d("RESULT", responseResult.getString("_id"));
+                                                editor.putString("user_id", responseResult.getString("_id"));
+                                                editor.apply();
+                                                //Log.d("RESULT", response.body().string());
                                                 return true;
                                             } catch (java.io.IOException e) {
+                                                e.printStackTrace();
+                                                return false;
+                                            } catch (JSONException e) {
                                                 e.printStackTrace();
                                                 return false;
                                             }
